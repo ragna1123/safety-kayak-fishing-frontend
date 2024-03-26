@@ -1,5 +1,5 @@
 # ベースイメージとしてNode.jsの公式イメージを使用
-FROM node:21.5
+FROM node:21.7
 
 # アプリケーションの作業ディレクトリを設定
 WORKDIR /myapp
@@ -17,4 +17,4 @@ RUN npm install
 COPY . .
 
 # コンテナが起動した際に実行されるコマンドを設定（アプリケーションの起動コマンド）
-CMD ["npm", "start"]
+CMD ["npm", "start","-p 3001"]

@@ -1,4 +1,4 @@
-import { InputFormType } from "../../../common/types/Types";
+import { InputFormType } from "@/common/types/Types";
 
 export default function Input(props: InputFormType) {
   return (

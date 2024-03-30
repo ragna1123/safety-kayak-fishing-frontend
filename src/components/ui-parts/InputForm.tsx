@@ -1,5 +1,5 @@
-import Input from "../ui-elements/input_form/input";
-import { InputFormType } from "../../common/types/Types";
+import Input from "@/components/ui-elements/input/Input";
+import { InputFormType } from "@/common/types/Types";
 
 export default function InputForm(props: InputFormType) {
   return (

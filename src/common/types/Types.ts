@@ -4,3 +4,8 @@ export type InputFormType = {
   id: string;
   label?: string; // labelはInputFormでのみ使用されるため、オプショナルにします。
 };
+
+export type ProfileType = {
+  username?: string;
+  imagePath: string;
+};

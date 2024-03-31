@@ -7,7 +7,7 @@ export default function TripRegisterLayout() {
 
   return (
     <div className="md:w-1/2 w-full flex flex-col justify-center items-center bg-base-300 rounded-xl p-8 space-y-4">
-      <h1 className="text-3xl font-bold mb-6">出船登録</h1>
+      <h1 className="text-3xl font-bold mb-6">出船編集</h1>
 
       <div className="text-center">
         <span className="font-semibold text-2xl">出船日: 4月16日</span>
@@ -55,7 +55,10 @@ export default function TripRegisterLayout() {
         </div>
 
         <button type="submit" className="btn btn-success w-full mt-4">
-          出船届作成
+          出船届変更
+        </button>
+        <button type="submit" className="btn btn-error w-full mt-4">
+          削除
         </button>
       </form>
     </div>

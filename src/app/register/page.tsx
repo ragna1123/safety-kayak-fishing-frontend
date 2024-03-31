@@ -1,11 +1,11 @@
 import HeroSection from "@/components/layouts/hero/HeroSection";
-import LoginLayout from "@/components/layouts/login/LoginLayout";
+import RegisterLayout from "@/components/layouts/register/RegisterLayout";
 
-export default function Login() {
+export default function Resister() {
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
       <HeroSection />
-      <LoginLayout />
+      <RegisterLayout />
     </div>
   );
 }

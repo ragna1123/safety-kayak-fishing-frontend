@@ -1,0 +1,25 @@
+import ToggleFavoriteIcon from "@/components/ui-parts/trip/favorite/ToggleFavoriteIcon";
+import DailyWeatherForecastTable from "@/components/ui-parts/trip/location/weather/DailyWeatherForecastTable";
+import React from "react";
+
+export default function TripHistoryDetailLayout() {
+  return (
+    <div className="md:w-1/2 w-full flex justify-center">
+      <div className="card w-full bg-base-300 shadow-xl mb-4">
+        <div className="text-center p-4">
+          <h1 className="text-3xl font-bold mt-2">出船履歴</h1>
+          <div className="flex justify-center items-center gap-4 mt-6">
+            <h2 className="text-2xl font-bold">地点名</h2>
+            <ToggleFavoriteIcon />
+          </div>
+          <h1 className="text-xl font-bold text-center mt-2 mb-4">地点名詳細</h1>
+          <p className="text-lg m-2">出船日時: 2024 4/16 6:00 - 13:00</p>
+        </div>
+
+        <div className="card-body">
+          <DailyWeatherForecastTable />
+        </div>
+      </div>
+    </div>
+  );
+}

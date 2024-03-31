@@ -7,7 +7,7 @@ export default function InputForm(props: InputFormType) {
       <label className="label">
         <span className="label-text">{props.label}</span>
       </label>
-      <Input type={props.type} placeholder={props.placeholder} id={props.id} />
+      <Input type={props.type} placeholder={props.placeholder} id={props.id} className={props.className} />
     </div>
   );
 }

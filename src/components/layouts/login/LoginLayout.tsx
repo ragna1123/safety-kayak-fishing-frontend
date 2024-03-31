@@ -1,5 +1,5 @@
 import React from "react";
-import InputForm from "@/components/ui-parts/InputForm";
+import InputForm from "@/components/ui-parts/input/InputForm";
 
 export default function LoginLayout() {
   return (

@@ -15,7 +15,9 @@ export default function Header() {
             role="button"
             className="btn btn-ghost btn-circle avatar"
           >
-            <ProfileImage imagePath= {"/1D562802-29A2-442D-89E1-2D38D5DB1181_1_105_c.jpeg"}/>
+            <ProfileImage
+              imagePath={"/1D562802-29A2-442D-89E1-2D38D5DB1181_1_105_c.jpeg"}
+            />
           </div>
           <ul
             tabIndex={0}
@@ -24,7 +26,6 @@ export default function Header() {
             <li>
               <a className="justify-between">
                 Profile
-                <span className="badge">New</span>
               </a>
             </li>
             <li>

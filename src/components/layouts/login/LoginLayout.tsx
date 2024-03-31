@@ -6,7 +6,7 @@ export default function LoginLayout() {
     <div className="md:w-1/2 w-full flex justify-center items-center">
       <div className="card w-full max-w-sm shadow-2xl bg-base-100">
         <div className="card-body">
-          <h2 className="card-title text-center mb-2">Kayak Fishing App</h2>
+          <h2 className="card-title text-center mb-2">Safety Kayak Fishing</h2>
           <InputForm
             label="Email"
             type="email"

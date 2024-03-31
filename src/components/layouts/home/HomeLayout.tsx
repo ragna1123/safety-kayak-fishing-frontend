@@ -6,9 +6,9 @@ import React from "react";
 export default function HomeLayout() {
   return (
     <div className="md:w-1/2 w-full items-center">
+      <OngoingTripCard />
       <FavoriteCard />
       <TripScheduleCard />
-      <OngoingTripCard />
     </div>
   );
 }

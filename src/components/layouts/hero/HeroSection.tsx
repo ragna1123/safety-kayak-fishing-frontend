@@ -18,7 +18,7 @@ export default function HeroSection() {
             <p className="py-6">
               今までにない、カヤックフィッシングの新しい体験をしませんか？
             </p>
-            <button className="btn btn-primary">New Create Account !!</button>
+            <button className="btn btn-primary">New Create Account</button>
           </div>
         </div>
       </div>

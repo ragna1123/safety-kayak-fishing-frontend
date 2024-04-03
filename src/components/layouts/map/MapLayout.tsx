@@ -1,10 +1,11 @@
 import React from "react";
+import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
 
 export default function MapLayout() {
   return (
-    <div className="md:w-1/2 w-full flex justify-center items-center bg-base-300 rounded-xl">
+    <DisplaySplitWrapper className="flex justify-center items-center">
       {/* ここにGoogleマップを領域展開 */}
       <h1>map</h1>
-    </div>
+    </DisplaySplitWrapper>
   );
 }

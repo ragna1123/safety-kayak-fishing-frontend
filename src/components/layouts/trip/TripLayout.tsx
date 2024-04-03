@@ -1,10 +1,11 @@
 import TripScheduleCard from "@/components/ui-parts/trip/schedule/TripScheduleCard";
 import React from "react";
+import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
 
 export default function TripLayout() {
   return (
-    <div className="md:w-1/2 w-full items-center">
+    <DisplaySplitWrapper>
       <TripScheduleCard />
-    </div>
+    </DisplaySplitWrapper>
   );
 }

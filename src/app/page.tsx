@@ -1,11 +1,12 @@
 import HeroSection from "@/components/layouts/hero/HeroSection";
+import DisplayFlexWrapper from "@/components/layouts/layoutWrapper/display/DisplayFlexWrapper";
 import LoginLayout from "@/components/layouts/login/LoginLayout";
 
 export default function Login() {
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
+    <DisplayFlexWrapper>
       <HeroSection />
       <LoginLayout />
-    </div>
+    </DisplayFlexWrapper>
   );
 }

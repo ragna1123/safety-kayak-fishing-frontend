@@ -1,12 +1,18 @@
 import React from "react";
-import InputForm from "@/components/ui-parts/input/InputForm";
+import InputForm from "@/components/ui-parts/from/InputForm";
+import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
+import CardWrapper from "../layoutWrapper/card/CardWrapper";
+import CardBodyWrapper from "../layoutWrapper/card/CardBody";
+import TextLink from "@/components/ui-elements/link/TextLink";
+import BasicButton from "@/components/ui-elements/button/BasicButton";
+import CardTitleH2 from "@/components/ui-elements/card/CardTitleH2";
 
 export default function RegisterLayout() {
   return (
-    <div className="md:w-1/2 w-full flex justify-center items-center">
-      <div className="card w-full max-w-sm shadow-2xl bg-base-100">
-        <div className="card-body">
-          <h2 className="card-title text-center mb-5">Safety Kayak Fishing</h2>
+    <DisplaySplitWrapper className="flex justify-center items-center">
+      <CardWrapper className="max-w-sm">
+        <CardBodyWrapper>
+          <CardTitleH2 title="Safety Kayak Fishing" />
           <InputForm
             label="UserName"
             type="text"
@@ -31,16 +37,14 @@ export default function RegisterLayout() {
             placeholder="PasswordConfirm"
             id="passwordConfirm"
           />
-          <label className="label">
-            <a href="/" className="label-text-alt link link-hover">
-              ログインはこちら
-            </a>
-          </label>
-          <div className="form-control mt-8">
-            <button className="btn btn-primary">Sign up</button>
-          </div>
-        </div>
-      </div>
-    </div>
+          <TextLink label="ログインはこちら" href="/" />
+          <BasicButton
+            label="Sign up"
+            className="mt-4"
+            buttonClassName="btn-primary"
+          />
+        </CardBodyWrapper>
+      </CardWrapper>
+    </DisplaySplitWrapper>
   );
 }

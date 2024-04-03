@@ -1,10 +1,13 @@
 import React from "react";
+import DailyWeatherForecastTable from "@/components/ui-parts/trip/location/weather/DailyWeatherForecastTable";
 
 export default function DailyWeatherDetail() {
   return (
     <>
-      <h2 className="card-title mt-2">地点名</h2>
-      <p className="mb-2">ここに当日の詳細天気を表示</p>
+      <div className="flex justify-center">
+        <h2 className="card-title mt-2">沼津 我入道</h2>
+      </div>
+      <DailyWeatherForecastTable />
     </>
   );
 }

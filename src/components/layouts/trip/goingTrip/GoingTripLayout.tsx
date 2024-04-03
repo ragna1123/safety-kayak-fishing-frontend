@@ -1,5 +1,5 @@
 import BasicButton from "@/components/ui-elements/button/BasicButton";
-import ToggleFavoriteIcon from "@/components/ui-parts/trip/favorite/ToggleFavoriteIcon";
+import ToggleFavoriteIcon from "@/components/ui-parts/button/ToggleFavoriteIcon";
 import DailyWeatherForecastTable from "@/components/ui-parts/trip/location/weather/DailyWeatherForecastTable";
 import React from "react";
 import DisplaySplitWrapper from "../../layoutWrapper/display/DisplaySplitWrapper";

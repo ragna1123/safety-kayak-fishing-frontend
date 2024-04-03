@@ -1,4 +1,4 @@
-import ToggleFavoriteIcon from "@/components/ui-parts/trip/favorite/ToggleFavoriteIcon";
+import ToggleFavoriteIcon from "@/components/ui-parts/button/ToggleFavoriteIcon";
 import DailyWeatherForecastTable from "@/components/ui-parts/trip/location/weather/DailyWeatherForecastTable";
 import WeeklyWeatherForecastTable from "@/components/ui-parts/trip/location/weather/WeeklyWeatherForecastTable";
 import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";

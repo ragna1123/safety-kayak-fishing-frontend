@@ -1,10 +1,17 @@
 import React from "react";
+import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
+import GoogleMap from "@/components/ui-parts/map/GoogleMap";
 
 export default function MapLayout() {
+  const locations = [
+    { lat: 35.6895, lng: 139.6917 }, // 東京
+    { lat: 34.6937, lng: 135.5023 }, // 大阪
+    // 他の緯度経度
+  ];
   return (
-    <div className="md:w-1/2 w-full flex justify-center items-center bg-base-300 rounded-xl">
+    <DisplaySplitWrapper>
       {/* ここにGoogleマップを領域展開 */}
-      <h1>map</h1>
-    </div>
+      <GoogleMap locations={locations} />
+    </DisplaySplitWrapper>
   );
 }

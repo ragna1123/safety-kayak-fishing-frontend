@@ -1,15 +1,20 @@
-import DailyWeatherDetail from "@/components/ui-elements/trip/weatherForecast/DailyWeatherDetail";
+import CardBodyWrapper from "@/components/layouts/layoutWrapper/card/CardBody";
+import CardWrapper from "@/components/layouts/layoutWrapper/card/CardWrapper";
+import DailyWeatherDetail from "@/components/ui-elements/weatherForecast/DailyWeatherDetail";
 import React from "react";
 
 export default function OngoingTripCard() {
   return (
-    <div className="card w-full bg-base-300 shadow-xl items-center mb-1">
-      <h1 className="text-2xl font-bold text-center mt-4">出船中</h1>
-      <div className="card-body items-center">
+    <CardWrapper>
+      <div className="flex justify-center">
+        <h1 className="text-2xl font-bold text-center mt-4">出船中</h1>
+      </div>
+      {/* ここでデータ取得とeach文 */}
+      <CardBodyWrapper>
         {/* 出船中のデータをバックエンドから取得 */}
         {/* ロケーションデータからstormGlassIOを叩きにいく */}
         <DailyWeatherDetail />
-      </div>
-    </div>
+      </CardBodyWrapper>
+    </CardWrapper>
   );
 }

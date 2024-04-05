@@ -1,11 +1,12 @@
 import HeroSection from "@/components/layouts/hero/HeroSection";
+import DisplayFlexWrapper from "@/components/layouts/layoutWrapper/display/DisplayFlexWrapper";
 import RegisterLayout from "@/components/layouts/register/RegisterLayout";
 
 export default function Resister() {
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
+    <DisplayFlexWrapper>
       <HeroSection />
       <RegisterLayout />
-    </div>
+    </DisplayFlexWrapper>
   );
 }

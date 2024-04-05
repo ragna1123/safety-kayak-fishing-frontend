@@ -1,9 +1,10 @@
+import React from "react";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 import ToggleFavoriteIcon from "@/components/ui-parts/button/ToggleFavoriteIcon";
 import DailyWeatherForecastTable from "@/components/ui-parts/trip/location/weather/DailyWeatherForecastTable";
-import React from "react";
 import DisplaySplitWrapper from "../../layoutWrapper/display/DisplaySplitWrapper";
 import CardWrapper from "../../layoutWrapper/card/CardWrapper";
+import CardBodyWrapper from "../../layoutWrapper/card/CardBody";
 
 export default function GoingTripLayout() {
   return (
@@ -20,10 +21,10 @@ export default function GoingTripLayout() {
 
         <h1 className="text-xl font-bold text-center mt-4">地点名詳細</h1>
 
-        <div className="card-body">
+        <CardBodyWrapper>
           <DailyWeatherForecastTable />
           <BasicButton label="帰投報告" className="btn-success mt-8" />
-        </div>
+        </CardBodyWrapper>
       </CardWrapper>
     </DisplaySplitWrapper>
   );

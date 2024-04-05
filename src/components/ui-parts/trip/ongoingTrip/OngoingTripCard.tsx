@@ -6,8 +6,9 @@ import React from "react";
 export default function OngoingTripCard() {
   return (
     <CardWrapper>
-      <h1 className="text-2xl font-bold text-center mt-4">出船中</h1>
-
+      <div className="flex justify-center">
+        <h1 className="text-2xl font-bold text-center mt-4">出船中</h1>
+      </div>
       {/* ここでデータ取得とeach文 */}
       <CardBodyWrapper>
         {/* 出船中のデータをバックエンドから取得 */}

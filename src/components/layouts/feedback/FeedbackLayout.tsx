@@ -20,6 +20,8 @@ export default function FeedbackLayout() {
               type="text"
               placeholder="タイトルを入力"
               id="title"
+              value=""
+              onChange={(e) => e.target.value}
             />
             <TextareaForm
               label="お問い合わせ内容"

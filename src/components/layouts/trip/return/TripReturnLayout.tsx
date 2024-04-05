@@ -22,6 +22,8 @@ export default function GoingTripLayout() {
               type="text"
               placeholder="タイトルを入力"
               id="title"
+              value=""
+              onChange={(e) => e.target.value}
             />
             <TextareaForm
               label="報告内容"

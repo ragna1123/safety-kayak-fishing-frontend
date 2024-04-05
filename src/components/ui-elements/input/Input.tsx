@@ -8,6 +8,7 @@ export default function Input(props: InputFormType) {
       placeholder={props.placeholder}
       className={`input input-bordered ${props.className}`}
       id={props.id}
+      onChange={props.onChange}
     />
   );
 }

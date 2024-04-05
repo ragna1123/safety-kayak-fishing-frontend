@@ -19,20 +19,30 @@ export default function EmergencyDetailLayout() {
               type="text"
               placeholder="氏名を入力"
               id="name"
+              value=""
+              onChange={(e) => e.target.value}
             />
             <InputForm
               label="関係"
               type="text"
               placeholder="関係性を入力"
               id="relationship"
+              value=""
+              onChange={(e) => e.target.value}
             />
             <InputForm
               label="メールアドレス"
               type="email"
               placeholder="メールアドレスを入力"
               id="email"
+              value=""
+              onChange={(e) => e.target.value}
             />
-            <BasicButton label="緊急連絡先登録" className="btn-success" buttonClassName="mt-6" />
+            <BasicButton
+              label="緊急連絡先登録"
+              className="btn-success"
+              buttonClassName="mt-6"
+            />
           </form>
         </CardBodyWrapper>
       </CardWrapper>

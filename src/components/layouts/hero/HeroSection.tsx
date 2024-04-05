@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
-import BasicButton from "@/components/ui-elements/button/BasicButton";
 
 export default function HeroSection() {
   return (
@@ -20,11 +19,9 @@ export default function HeroSection() {
             <p className="py-6">
               今までにない、カヤックフィッシングの新しい体験をしませんか？
             </p>
-            <BasicButton
-              label="New Create Account"
-              className="items-start"
-              buttonClassName="btn-primary"
-            />
+            <a className="btn btn-primary" href="/register">
+              New Create Account
+            </a>
           </div>
         </div>
       </div>

@@ -6,6 +6,7 @@ import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
 
 
 export default function HomeLayout() {
+  
   return (
     <DisplaySplitWrapper>
       <OngoingTripCard />

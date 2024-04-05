@@ -17,24 +17,32 @@ export default function ProfileEditLayout() {
               type="text"
               placeholder="氏名を入力"
               id="name"
+              value=""
+              onChange={(e) => e.target.value}
             />
             <InputForm
               label="メールアドレス"
               type="email"
               placeholder="メールアドレスを入力"
               id="email"
+              value=""
+              onChange={(e) => e.target.value}
             />
             <InputForm
               label="パスワード"
               type="password"
               placeholder="パスワードを入力"
               id="password"
+              value=""
+              onChange={(e) => e.target.value}
             />
             <InputForm
               label="パスワード確認"
               type="password"
               placeholder="パスワードを再入力"
               id="passwordConfirm"
+              value=""
+              onChange={(e) => e.target.value}
             />
             <BasicButton
               label="登録"

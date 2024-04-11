@@ -2,12 +2,12 @@
 // @ts-nocheck
 // @ts-ignore
 
-'use client'
-import React, { useEffect, useRef } from 'react';
+"use client";
+import React, { useEffect, useRef } from "react";
 
 const GoogleMap = ({ locations }) => {
   const googleMapRef = useRef(null);
-  let googleMap:any = null;
+  let googleMap: any = null;
 
   // Google Maps を初期化し、マーカーを配置する関数
   useEffect(() => {
@@ -27,18 +27,20 @@ const GoogleMap = ({ locations }) => {
     };
 
     // Google Maps スクリプトを非同期で読み込み、初期化関数を実行
-    const googleMapScript = document.createElement('script');
-    googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyACjAhDkwN71VQtz63hURDTuFG_-77n14E&libraries=places`;
+    const googleMapScript = document.createElement("script");
+    googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`;
     googleMapScript.async = true;
     googleMapScript.defer = true;
     window.document.body.appendChild(googleMapScript);
-    googleMapScript.addEventListener('load', initGoogleMap);
+    googleMapScript.addEventListener("load", initGoogleMap);
     return () => {
-      googleMapScript.removeEventListener('load', initGoogleMap);
+      googleMapScript.removeEventListener("load", initGoogleMap);
     };
   }, []);
 
-  return <div ref={googleMapRef} style={{ width: '800px', height: '500px' }}></div>;
+  return (
+    <div ref={googleMapRef} style={{ width: "auto", height: "auto" }}></div>
+  );
 };
 
 export default GoogleMap;

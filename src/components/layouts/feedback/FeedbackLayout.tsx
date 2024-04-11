@@ -2,7 +2,7 @@ import React from "react";
 import InputForm from "@/components/ui-parts/from/InputForm";
 import TextareaForm from "@/components/ui-parts/from/TextareaForm";
 import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
-import CardBodyWrapper from "../layoutWrapper/card/CardBody";
+import CardBodyWrapper from "../layoutWrapper/card/CardBodyWrapper";
 import CardWrapper from "../layoutWrapper/card/CardWrapper";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 
@@ -29,7 +29,11 @@ export default function FeedbackLayout() {
               placeholder="内容を入力"
               id="report"
             />
-            <BasicButton label="送信" className="btn-success" buttonClassName="my-6" />
+            <BasicButton
+              label="送信"
+              className="btn-success"
+              buttonClassName="my-6"
+            />
           </form>
         </CardBodyWrapper>
       </CardWrapper>

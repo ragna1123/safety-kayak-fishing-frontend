@@ -2,7 +2,7 @@ import React from "react";
 import InputForm from "@/components/ui-parts/from/InputForm";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 import CardWrapper from "../layoutWrapper/card/CardWrapper";
-import CardBodyWrapper from "../layoutWrapper/card/CardBody";
+import CardBodyWrapper from "../layoutWrapper/card/CardBodyWrapper";
 import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
 
 export default function EmergencyDetailLayout() {

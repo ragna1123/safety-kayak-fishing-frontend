@@ -1,12 +1,13 @@
+"use server"
 import React from "react";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 import ToggleFavoriteIcon from "@/components/ui-parts/button/ToggleFavoriteIcon";
 import DailyWeatherForecastTable from "@/components/ui-parts/trip/location/weather/DailyWeatherForecastTable";
 import DisplaySplitWrapper from "../../layoutWrapper/display/DisplaySplitWrapper";
 import CardWrapper from "../../layoutWrapper/card/CardWrapper";
-import CardBodyWrapper from "../../layoutWrapper/card/CardBody";
+import CardBodyWrapper from "../../layoutWrapper/card/CardBodyWrapper";
 
-export default function GoingTripLayout() {
+export default async function GoingTripLayout() {
   return (
     <DisplaySplitWrapper>
       <CardWrapper>

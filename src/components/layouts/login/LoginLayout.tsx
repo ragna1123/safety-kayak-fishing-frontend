@@ -4,7 +4,7 @@ import InputForm from "@/components/ui-parts/from/InputForm";
 import TextLink from "@/components/ui-elements/link/TextLink";
 import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
 import CardWrapper from "../layoutWrapper/card/CardWrapper";
-import CardBodyWrapper from "../layoutWrapper/card/CardBody";
+import CardBodyWrapper from "../layoutWrapper/card/CardBodyWrapper";
 import CardTitleH2 from "@/components/ui-elements/card/CardTitleH2";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 import axios from "axios";
@@ -17,26 +17,28 @@ export default function LoginLayout() {
 
   const handleLogin = async () => {
     try {
-      const requestLogin = { user: { email, password } };
+      const requestLogin = { user: { email, password }};
       // ログインリクエストを送信
-      const response = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_RAILS_API_URL}/users/login`,
-        requestLogin
-      );
-      
-      // レスポンスのステータスコードが200(OK)の場合はホームページにリダイレクト
-      if (response.status === 200) {
-        router.push("/home");
-      } else {
-        // ログインに失敗した場合の処理
-        throw new Error("ログインに失敗しました");
-      }
+        requestLogin,
+        { withCredentials: true }
+      ).then((response) => {
+        if (response.status === 200) {
+          // ログインに成功した場合の処理
+        // レスポンスのステータスコードが200(OK)の場合はホームページにリダイレクト
+          router.push("/home");
+        } else {
+          // ログインに失敗した場合の処理
+          throw new Error("ログインに失敗しました");
+        }
+      })
     } catch (error) {
       console.error("Login error", error);
       // エラーハンドリングをここに記述
+      router.push("/");
     }
   };
-  
 
   return (
     <DisplaySplitWrapper className="flex justify-center items-center">

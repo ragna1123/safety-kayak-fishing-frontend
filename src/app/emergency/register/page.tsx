@@ -2,8 +2,6 @@ import EmergencyLayout from "@/components/layouts/emergency/EmergencyLayout";
 import EmergencyDetailLayout from "@/components/layouts/emergency/EmergencyDetailLayout";
 import Header from "@/components/layouts/header/Header";
 
-
-
 export default function EmergencyRegister() {
   return (
     <>

@@ -1,7 +1,7 @@
 import React from "react";
 import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
 import CardWrapper from "../layoutWrapper/card/CardWrapper";
-import CardBodyWrapper from "../layoutWrapper/card/CardBody";
+import CardBodyWrapper from "../layoutWrapper/card/CardBodyWrapper";
 
 export default function ProfileLayout() {
   // 仮のプロファイルデータ

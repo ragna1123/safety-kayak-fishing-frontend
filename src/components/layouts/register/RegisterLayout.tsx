@@ -1,14 +1,14 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 import InputForm from "@/components/ui-parts/from/InputForm";
 import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
 import CardWrapper from "../layoutWrapper/card/CardWrapper";
-import CardBodyWrapper from "../layoutWrapper/card/CardBody";
+import CardBodyWrapper from "../layoutWrapper/card/CardBodyWrapper";
 import TextLink from "@/components/ui-elements/link/TextLink";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 import CardTitleH2 from "@/components/ui-elements/card/CardTitleH2";
-import { useRouter } from "next/navigation";
-import axios from "axios";
 import WarningFlashMessage from "@/components/ui-parts/flashMessage/WarningFlashMessage";
 
 export default function RegisterLayout() {

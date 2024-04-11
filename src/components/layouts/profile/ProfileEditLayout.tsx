@@ -2,7 +2,7 @@ import InputForm from "@/components/ui-parts/from/InputForm";
 import React from "react";
 import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
 import CardWrapper from "../layoutWrapper/card/CardWrapper";
-import CardBodyWrapper from "../layoutWrapper/card/CardBody";
+import CardBodyWrapper from "../layoutWrapper/card/CardBodyWrapper";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 
 export default function ProfileEditLayout() {

@@ -33,10 +33,7 @@ export default function TripRegisterLayout() {
             checked={lineNotification}
             onChange={() => setLineNotification(!lineNotification)}
           />
-          <BasicButton
-            label="出船届作成"
-            className="btn-success mt-4"
-          />
+          <BasicButton label="出船届作成" className="btn-success mt-4" />
         </form>
       </CardWrapper>
     </DisplaySplitWrapper>

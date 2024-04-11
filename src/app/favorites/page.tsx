@@ -9,7 +9,6 @@ export default function Favorite() {
     <>
       <Header />
       <DisplayFlexWrapper>
-
         <MapLayout />
         <FavoriteLayout />
       </DisplayFlexWrapper>

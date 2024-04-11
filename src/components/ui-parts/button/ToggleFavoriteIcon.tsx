@@ -14,4 +14,3 @@ function ToggleFavoriteIcon() {
 }
 
 export default ToggleFavoriteIcon;
-

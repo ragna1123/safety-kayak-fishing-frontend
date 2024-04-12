@@ -29,6 +29,7 @@ const GoogleMap = ({ locations }) => {
     // Google Maps スクリプトを非同期で読み込み、初期化関数を実行
     const googleMapScript = document.createElement("script");
     googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`;
+
     googleMapScript.async = true;
     googleMapScript.defer = true;
     window.document.body.appendChild(googleMapScript);

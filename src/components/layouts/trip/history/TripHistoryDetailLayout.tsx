@@ -3,7 +3,7 @@ import DailyWeatherForecastTable from "@/components/ui-parts/trip/location/weath
 import React from "react";
 import DisplaySplitWrapper from "../../layoutWrapper/display/DisplaySplitWrapper";
 import CardWrapper from "../../layoutWrapper/card/CardWrapper";
-import CardBodyWrapper from "../../layoutWrapper/card/CardBody";
+import CardBodyWrapper from "../../layoutWrapper/card/CardBodyWrapper";
 
 export default function TripHistoryDetailLayout() {
   return (

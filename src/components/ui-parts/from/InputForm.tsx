@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useState } from "react";
 import Input from "@/components/ui-elements/input/Input";
 import { InputFormType } from "@/common/types/Types";
@@ -21,4 +21,3 @@ export default function InputForm(props: InputFormType) {
     </div>
   );
 }
-

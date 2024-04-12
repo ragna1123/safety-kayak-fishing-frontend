@@ -4,9 +4,11 @@ import DailyWeatherDetail from "@/components/ui-elements/weatherForecast/DailyWe
 import CardBodyWrapper from "@/components/layouts/layoutWrapper/card/CardBodyWrapper";
 import CardWrapper from "@/components/layouts/layoutWrapper/card/CardWrapper";
 import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";
+import FetchLoading from "@/components/ui-elements/icon/loading/FetchLoading";
 
 export default function TripScheduleCard() {
   const [weatherArrayData, setWeatherArrayData] = useState<any[]>([]);
+
   async function getWeatherArrayData() {
     try {
       // const activeTripResponse = await fetch(
@@ -62,15 +64,14 @@ export default function TripScheduleCard() {
             },
           location: {
               id: 1,
-              latitude: "80.681236",
-              longitude: "139.767125",
+              latitude: 34.839684,
+              longitude: 138.334068,
               created_at: "2024-04-09T02:26:27.607Z",
               updated_at: "2024-04-09T02:26:27.607Z"
             }
         }
     ]
 
-      
     const weatherDataPromises = tripsData.map(async (trip) => {
       if (trip.trip && trip.trip.departure_time) {
         return await FetchDailyWeatherData(trip);
@@ -96,20 +97,16 @@ export default function TripScheduleCard() {
   return (
     <CardWrapper>
       <CardBodyWrapper>
-              <div className="flex justify-center">
-                <h1 className="card-title  text-2xl font-bold text-center mt-4">出船予定</h1>
-              </div>
-      {
+        <div className="flex justify-center">
+          <h1 className="card-title  text-2xl font-bold text-center mt-4">出船予定</h1>
+        </div>
+        {
           weatherArrayData.length > 0 ? (
             weatherArrayData.map((data, index) => (
-              <>
               <DailyWeatherDetail key={index} weatherData={data} />
-              </>
             ))
           ) : (
-            <div className="items-center">
-              <span className="loading loading-spinner loading-lg"></span>
-            </div>
+              <FetchLoading />
           )
         }
       </CardBodyWrapper>

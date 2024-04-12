@@ -10,7 +10,7 @@ export default async function HomeLayout() {
   // なければ、ログイン画面にリダイレクトする処理を追加
   return (
     <DisplaySplitWrapper>
-      <OngoingTripCard />
+      <OngoingTripCard detailToggle={false}/>
       <TripScheduleCard />
       <FavoriteCard />
     </DisplaySplitWrapper>

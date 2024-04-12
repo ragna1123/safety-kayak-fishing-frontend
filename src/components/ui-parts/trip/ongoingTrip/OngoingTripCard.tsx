@@ -4,8 +4,10 @@ import CardWrapper from "@/components/layouts/layoutWrapper/card/CardWrapper";
 import CardBodyWrapper from "@/components/layouts/layoutWrapper/card/CardBodyWrapper";
 import DailyWeatherDetail from "@/components/ui-elements/weatherForecast/DailyWeatherDetail";
 import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";
+import FetchLoading from "@/components/ui-elements/icon/loading/FetchLoading";
+import BasicButton from "@/components/ui-elements/button/BasicButton";
 
-export default function OngoingTripCard() {
+export default function OngoingTripCard({ detailToggle }: { detailToggle: boolean }) {
   const [weatherData, setWeatherData] = useState(null);
 
   async function getWeatherData() {
@@ -25,8 +27,8 @@ export default function OngoingTripCard() {
           departure_time: "2024-04-13T16:30:00.000Z",
         },
         location: {
-          latitude: 35.658581,
-          longitude: 139.745433,
+          latitude: 35.078368,
+          longitude: 138.860804,
         }
       };
       
@@ -54,11 +56,12 @@ export default function OngoingTripCard() {
       </div>
         {
           weatherData ? (
-            <DailyWeatherDetail weatherData={weatherData} />
+            <>
+              <DailyWeatherDetail weatherData={weatherData} detailToggle={detailToggle}/>
+              <BasicButton label="帰還報告へ" className="btn-success" />
+            </>
           ) : (
-            <div className="items-center">
-              <span className="loading loading-spinner loading-lg"></span>
-            </div>
+            <FetchLoading />
           )
         }
       </CardBodyWrapper>

@@ -1,3 +1,4 @@
+"use client";
 import React, { ReactNode } from "react";
 
 type CardWrapperProps = {
@@ -6,9 +7,7 @@ type CardWrapperProps = {
 };
 
 const CardWrapper: React.FC<CardWrapperProps> = ({ children, className = "" }) => {
-  return <div className={`card w-full shadow-2xl bg-base-100 ${className}`}>
-    {children}
-  </div>;
+  return <div className={`card w-full shadow-2xl bg-base-100 ${className}`}>{children}</div>;
 };
 
 export default CardWrapper;

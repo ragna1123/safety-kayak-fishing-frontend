@@ -17,22 +17,18 @@ export default function LoginLayout() {
 
   const handleLogin = async () => {
     try {
-      const requestLogin = { user: { email, password }};
+      const requestLogin = { user: { email, password } };
       // ログインリクエストを送信
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_RAILS_API_URL}/users/login`,
-        requestLogin,
-        { withCredentials: true }
-      ).then((response) => {
+      await axios.post(`http://localhost:3000/api/users/login`, requestLogin, { withCredentials: true }).then((response) => {
         if (response.status === 200) {
           // ログインに成功した場合の処理
-        // レスポンスのステータスコードが200(OK)の場合はホームページにリダイレクト
+          // レスポンスのステータスコードが200(OK)の場合はホームページにリダイレクト
           router.push("/home");
         } else {
           // ログインに失敗した場合の処理
           throw new Error("ログインに失敗しました");
         }
-      })
+      });
     } catch (error) {
       console.error("Login error", error);
       // エラーハンドリングをここに記述
@@ -45,29 +41,10 @@ export default function LoginLayout() {
       <CardWrapper className="max-w-sm">
         <CardBodyWrapper>
           <CardTitleH2 title="Safety Kayak Fishing" />
-          <InputForm
-            label="Email"
-            type="email"
-            placeholder="Email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <InputForm
-            label="Password"
-            type="password"
-            placeholder="Password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <InputForm label="Email" type="email" placeholder="Email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <InputForm label="Password" type="password" placeholder="Password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           <TextLink label="新規登録はこちら" href="/register" />
-          <BasicButton
-            label="Sign in"
-            className="mt-4"
-            buttonClassName="btn-primary"
-            onClick={handleLogin}
-          />
+          <BasicButton label="Sign in" className="mt-4" buttonClassName="btn-primary" onClick={handleLogin} />
         </CardBodyWrapper>
       </CardWrapper>
     </DisplaySplitWrapper>

@@ -1,47 +1,39 @@
-/* eslint-disable */
-// @ts-nocheck
-// @ts-ignore
-
 "use client";
-import React, { useEffect, useRef } from "react";
+// components/GoogleMap.js
+import React, { useRef, useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { locationState } from "@/common/states/locationState";
+import { useGoogleMap } from "@/common/hooks/useGoogleMap";
 
 const GoogleMap = ({ locations }) => {
   const googleMapRef = useRef(null);
-  let googleMap: any = null;
+  const { googleMap, marker, setMarker } = useGoogleMap(googleMapRef, locations);
+  const [location, setLocation] = useRecoilState(locationState);
 
-  // Google Maps を初期化し、マーカーを配置する関数
   useEffect(() => {
-    const initGoogleMap = () => {
-      googleMap = new google.maps.Map(googleMapRef.current, {
-        center: locations[0],
-        zoom: 8,
-      });
+    if (googleMap) {
+      const clickListener = google.maps.event.addListener(googleMap, "click", (e) => {
+        if (marker) {
+          marker.setMap(null);
+        }
 
-      // マーカーを配置
-      locations.forEach((location) => {
-        new google.maps.Marker({
-          position: location,
+        const newMarker = new google.maps.Marker({
+          position: e.latLng,
           map: googleMap,
         });
+
+        setMarker(newMarker);
+        setLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() });
+        console.log(`緯度: ${e.latLng.lat()}, 経度: ${e.latLng.lng()}`);
       });
-    };
 
-    // Google Maps スクリプトを非同期で読み込み、初期化関数を実行
-    const googleMapScript = document.createElement("script");
-    googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`;
+      return () => {
+        google.maps.event.removeListener(clickListener);
+      };
+    }
+  }, [googleMap, setMarker, setLocation, marker]);
 
-    googleMapScript.async = true;
-    googleMapScript.defer = true;
-    window.document.body.appendChild(googleMapScript);
-    googleMapScript.addEventListener("load", initGoogleMap);
-    return () => {
-      googleMapScript.removeEventListener("load", initGoogleMap);
-    };
-  }, []);
-
-  return (
-    <div ref={googleMapRef} style={{ width: "auto", height: "auto" }}></div>
-  );
+  return <div ref={googleMapRef} style={{ width: "100%", height: "100%" }}></div>;
 };
 
 export default GoogleMap;

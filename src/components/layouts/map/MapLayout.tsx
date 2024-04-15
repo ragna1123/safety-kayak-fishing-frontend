@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
 import GoogleMap from "@/components/ui-parts/map/GoogleMap";
@@ -8,9 +9,10 @@ export default function MapLayout() {
     { lat: 34.6937, lng: 135.5023 }, // 大阪
     // 他の緯度経度
   ];
+
   return (
-    <DisplaySplitWrapper>
-      {/* ここにGoogleマップを領域展開 */}
+    <DisplaySplitWrapper leftPosition={true}>
+      {/* Googleマップを表示 */}
       <GoogleMap locations={locations} />
     </DisplaySplitWrapper>
   );

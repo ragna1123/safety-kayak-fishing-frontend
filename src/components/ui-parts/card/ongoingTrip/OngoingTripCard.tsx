@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useState } from "react";
 import CardWrapper from "@/components/layouts/layoutWrapper/card/CardWrapper";
 import CardBodyWrapper from "@/components/layouts/layoutWrapper/card/CardBodyWrapper";
@@ -9,42 +8,36 @@ import BasicButton from "@/components/ui-elements/button/BasicButton";
 
 export default function OngoingTripCard({ detailToggle }: { detailToggle: boolean }) {
   const [weatherData, setWeatherData] = useState(null);
+  const [tripData, setTripData] = useState(null);
 
   async function getWeatherData() {
     try {
-      // const activeTripResponse = await fetch(
-      //   `${process.env.NEXT_PUBLIC_RAILS_API_URL}/trips/active`,
-      //   {
-      //     credentials: "include",
-      //   }
-      // );
+      const activeTripResponse = await fetch(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/trips/active`, {
+        credentials: "include",
+      });
+      const res = await activeTripResponse.json();
 
-      // const tripData = activeTripResponse.json();
+      if (!res.data) {
+        setTripData(null);
+        return; // ローディングを終了する
+      }
 
-      // ダミーデータ
-      const tripData = {
-        trip: {
-          departure_time: "2024-04-13T16:30:00.000Z",
-        },
-        location_data: {
-          latitude: 35.658581,
-          longitude: 139.745433,
-        },
-      };
+      console.log("res.data", res.data);
+      setTripData(res.data);
 
-      if (tripData.trip && tripData.trip.departure_time) {
-        const weatherResponse = await FetchDailyWeatherData(tripData);
+      if (res.data.trip && res.data.trip.departure_time) {
+        const weatherResponse = await FetchDailyWeatherData(res.data);
         setWeatherData(weatherResponse);
       }
     } catch (error) {
       console.error("Error", error);
-      // 適切なエラーハンドリングをここに追加
+      // 適切なエラーハンドリングを行う
     }
   }
 
   useEffect(() => {
     getWeatherData();
-  }, []);
+  }, []); // tripData が変更された場合に再実行
 
   return (
     <CardWrapper>
@@ -52,16 +45,24 @@ export default function OngoingTripCard({ detailToggle }: { detailToggle: boolea
         <div className="flex justify-center">
           <h1 className="text-2xl font-bold text-center mt-4">出船中</h1>
         </div>
-        {weatherData ? (
-          <>
-            <div className="flex justify-center">
-              <h2 className="text-xl">地点名</h2>
-            </div>
-            <DailyWeatherDetail weatherData={weatherData} detailToggle={detailToggle} />
-            <BasicButton label="帰還報告へ" className="btn-success" />
-          </>
+        {tripData && Object.keys(tripData).length > 0 ? (
+          weatherData ? (
+            <>
+              <div className="flex justify-center">
+                <h2 className="text-xl">地点名</h2>
+              </div>
+              <DailyWeatherDetail weatherData={weatherData} detailToggle={detailToggle} />
+              <div className="flex justify-center">
+                <BasicButton label="帰還報告へ" className="btn-success" />
+              </div>
+            </>
+          ) : (
+            <FetchLoading />
+          )
         ) : (
-          <FetchLoading />
+          <div className="flex justify-center">
+            <h2 className="text-xl">出船中の情報がありません</h2>
+          </div>
         )}
       </CardBodyWrapper>
     </CardWrapper>

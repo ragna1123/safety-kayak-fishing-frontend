@@ -22,7 +22,6 @@ export default function OngoingTripCard({ detailToggle }: { detailToggle: boolea
         return; // ローディングを終了する
       }
 
-      console.log("res.data", res.data);
       setTripData(res.data);
 
       if (res.data.trip && res.data.trip.departure_time) {
@@ -52,9 +51,7 @@ export default function OngoingTripCard({ detailToggle }: { detailToggle: boolea
                 <h2 className="text-xl">地点名</h2>
               </div>
               <DailyWeatherDetail weatherData={weatherData} detailToggle={detailToggle} />
-              <div className="flex justify-center">
-                <BasicButton label="帰還報告へ" className="btn-success" />
-              </div>
+              <BasicButton label="帰還報告へ" className="btn-success" />
             </>
           ) : (
             <FetchLoading />

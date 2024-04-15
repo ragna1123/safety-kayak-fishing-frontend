@@ -8,39 +8,18 @@ import FetchLoading from "@/components/ui-elements/icon/loading/FetchLoading";
 
 export default function FavoriteCard() {
   const [weeklyWeatherData, setWeeklyWeatherData] = useState<any[]>([]);
+  const [favoriteLocations, setFavoriteLocations] = useState<any[]>([]);
 
   async function getWeeklyWeatherData() {
     try {
-      // const favoriteLocationsResponse = await fetch(
-      //   `${process.env.NEXT_PUBLIC_RAILS_API_URL}/favorite_locations`,
-      //   {
-      //     credentials: "include",
-      //   }
-      // );
-      // const favoriteLocationsData = await favoriteLocationsResponse.json();
-      // ダミーデータを使用
-      const favoriteLocationsData = [
-        {
-          id: 10,
-          location_name: "タイの場所",
-          description: "Fishing at Tokyo Bay",
-          location_data: {
-            latitude: 34.839684,
-            longitude: 138.334068,
-          },
-        },
-        {
-          id: 11,
-          location_name: "そこらへん",
-          description: "Fishing at Tokyo Bay",
-          location_data: {
-            latitude: 10.681236,
-            longitude: 139.767125,
-          },
-        },
-      ];
+      const favoriteLocationsResponse = await fetch(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/favorite_locations`, {
+        credentials: "include",
+      });
+      const favoriteLocationsData = await favoriteLocationsResponse.json();
+      setFavoriteLocations(favoriteLocationsData.data);
+      console.log("favoriteLocationsData", favoriteLocationsData);
 
-      const weeklyWeatherDataPromises = favoriteLocationsData.map(async (location) => {
+      const weeklyWeatherDataPromises = favoriteLocationsData.data.map(async (location) => {
         return await FetchWeeklyWeatherData(location);
       });
 
@@ -61,18 +40,23 @@ export default function FavoriteCard() {
         <h1 className="text-2xl font-bold text-center mt-4">お気に入り地点</h1>
       </div>
       <CardBodyWrapper>
-        {/* ここでWeeklyWeatherForecastにデータを渡す */}
-        {weeklyWeatherData.length > 0 ? (
-          weeklyWeatherData.map((data, index) => (
-            <>
-              <div className="flex justify-center">
-                <h2 className="text-xl">地点名</h2>
+        {favoriteLocations.length > 0 ? (
+          weeklyWeatherData.length > 0 ? (
+            weeklyWeatherData.map((data, index) => (
+              <div key={index}>
+                <div className="flex justify-center">
+                  <h2 className="text-xl">地点名</h2>
+                </div>
+                <WeeklyWeatherForecast key={index} weatherData={data} />
               </div>
-              <WeeklyWeatherForecast key={index} weatherData={data} />
-            </>
-          ))
+            ))
+          ) : (
+            <FetchLoading />
+          )
         ) : (
-          <FetchLoading />
+          <div className="flex justify-center">
+            <h2 className="text-xl">お気に入り地点がありません</h2>
+          </div>
         )}
       </CardBodyWrapper>
     </CardWrapper>

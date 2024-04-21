@@ -6,7 +6,7 @@ import InputField from "@/components/ui-elements/input/InputField";
 import ToggleSwitch from "@/components/ui-elements/switch/ToggleSwitch";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 
-export default function TripRegisterLayout() {
+export default function TripRegisterLayout(location: any) {
   const [emailNotification, setEmailNotification] = useState(true);
   const [lineNotification, setLineNotification] = useState(true);
 
@@ -23,16 +23,8 @@ export default function TripRegisterLayout() {
           <p>日の出 6:00</p>
           <InputField label="帰港時間" id="returnTime" type="time" />
           <p>日の入 18:00</p>
-          <ToggleSwitch
-            label="帰投時刻を過ぎたら緊急連絡先へメールを送信"
-            checked={emailNotification}
-            onChange={() => setEmailNotification(!emailNotification)}
-          />
-          <ToggleSwitch
-            label="出船中に安全度が低下したらLINEでお知らせ"
-            checked={lineNotification}
-            onChange={() => setLineNotification(!lineNotification)}
-          />
+          <ToggleSwitch label="帰投時刻を過ぎたら緊急連絡先へメールを送信" checked={emailNotification} onChange={() => setEmailNotification(!emailNotification)} />
+          <ToggleSwitch label="出船中に安全度が低下したらLINEでお知らせ" checked={lineNotification} onChange={() => setLineNotification(!lineNotification)} />
           <BasicButton label="出船届編集" className="btn-success m-4" />
         </form>
       </CardWrapper>

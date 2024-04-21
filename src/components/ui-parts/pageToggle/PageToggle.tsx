@@ -6,5 +6,6 @@ import { useRecoilValue } from "recoil";
 
 export default function HomeLocationToggle() {
   const locationData = useRecoilValue(locationState);
+  // リコイルがページは以下で使用できないのでコンポーネント化した
   return <>{locationData ? <LocationLayout /> : <HomeLayout />}</>;
 }

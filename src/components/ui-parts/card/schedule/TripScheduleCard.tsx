@@ -23,7 +23,7 @@ export default function TripScheduleCard() {
         setTripsArrayData(tripsData.data);
       }
 
-      const weatherDataPromises = tripsData.data.map(async (trip) => {
+      const weatherDataPromises = tripsData.data.map(async (trip: any) => {
         if (trip.trip && trip.trip.departure_time) {
           return await FetchDailyWeatherData(trip);
         }

@@ -2,15 +2,15 @@
 import Header from "@/components/layouts/header/Header";
 import MapLayout from "@/components/layouts/map/MapLayout";
 import DisplayFlexWrapper from "@/components/layouts/layoutWrapper/display/DisplayFlexWrapper";
-import HomeLayout from "@/components/layouts/home/HomeLayout";
+import LocationLayout from "@/components/layouts/location/LocationLayout";
 
-export default function Home() {
+export default function Location() {
   return (
     <>
       <Header />
       <DisplayFlexWrapper>
         <MapLayout />
-        <HomeLayout />
+        <LocationLayout />
       </DisplayFlexWrapper>
     </>
   );

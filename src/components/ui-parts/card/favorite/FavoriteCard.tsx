@@ -19,7 +19,7 @@ export default function FavoriteCard() {
       setFavoriteLocations(favoriteLocationsData.data);
       console.log("favoriteLocationsData", favoriteLocationsData);
 
-      const weeklyWeatherDataPromises = favoriteLocationsData.data.map(async (location) => {
+      const weeklyWeatherDataPromises = favoriteLocationsData.data.map(async (location: any) => {
         return await FetchWeeklyWeatherData(location);
       });
 
@@ -40,7 +40,7 @@ export default function FavoriteCard() {
         <h1 className="text-2xl font-bold text-center mt-4">お気に入り地点</h1>
       </div>
       <CardBodyWrapper>
-        {favoriteLocations.length > 0 ? (
+        {favoriteLocations && Object.keys(favoriteLocations).length > 0 ? (
           weeklyWeatherData.length > 0 ? (
             weeklyWeatherData.map((data, index) => (
               <div key={index}>

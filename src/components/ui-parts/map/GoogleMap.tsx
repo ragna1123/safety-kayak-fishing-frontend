@@ -1,14 +1,46 @@
 "use client";
 // components/GoogleMap.js
 import React, { useRef, useEffect } from "react";
+import { useGoogleMap } from "@/common/hooks/useGoogleMap";
+import { useRouter } from "next/navigation";
 import { useRecoilState } from "recoil";
 import { locationState } from "@/common/states/locationState";
-import { useGoogleMap } from "@/common/hooks/useGoogleMap";
 
 const GoogleMap = ({ locations }) => {
   const googleMapRef = useRef(null);
+  const router = useRouter();
   const { googleMap, marker, setMarker } = useGoogleMap(googleMapRef, locations);
-  const [location, setLocation] = useRecoilState(locationState);
+  const [recoilLocation, setRecoilLocation] = useRecoilState(locationState);
+
+  // マップ初期化とマーカーの配置
+  useEffect(() => {
+    const initializeMap = () => {
+      if (window.google && !googleMap) {
+        const storedLocation = sessionStorage.getItem("location");
+        let initialLocation = storedLocation ? JSON.parse(storedLocation) : null;
+
+        if (!initialLocation && recoilLocation?.lat && recoilLocation?.lng) {
+          initialLocation = recoilLocation;
+        }
+
+        const initialConfig = {
+          center: initialLocation,
+          zoom: 12,
+        };
+
+        const map = new google.maps.Map(googleMapRef.current, initialConfig);
+        setMarker(
+          new google.maps.Marker({
+            position: initialConfig.center,
+            map: map,
+            title: "Initial Location",
+          })
+        );
+      }
+    };
+
+    initializeMap();
+  }, [recoilLocation, setMarker, setRecoilLocation, googleMap]);
 
   useEffect(() => {
     if (googleMap) {
@@ -23,17 +55,21 @@ const GoogleMap = ({ locations }) => {
         });
 
         setMarker(newMarker);
-        setLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() });
-        console.log(`緯度: ${e.latLng.lat()}, 経度: ${e.latLng.lng()}`);
+        setRecoilLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() });
+        sessionStorage.setItem("location", JSON.stringify({ lat: e.latLng.lat(), lng: e.latLng.lng() }));
+
+        router.push("/location");
       });
 
       return () => {
-        google.maps.event.removeListener(clickListener);
+        google.maps.event.clearListeners(googleMap, "click");
       };
     }
-  }, [googleMap, setMarker, setLocation, marker]);
+  }, [googleMap, setMarker, marker, setRecoilLocation, router]);
 
   return <div ref={googleMapRef} style={{ width: "100%", height: "100%" }}></div>;
 };
+
+GoogleMap.displayName = "GoogleMap";
 
 export default GoogleMap;

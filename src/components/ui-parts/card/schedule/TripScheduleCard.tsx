@@ -5,6 +5,8 @@ import CardBodyWrapper from "@/components/layouts/layoutWrapper/card/CardBodyWra
 import CardWrapper from "@/components/layouts/layoutWrapper/card/CardWrapper";
 import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";
 import FetchLoading from "@/components/ui-elements/icon/loading/FetchLoading";
+import { useRouter } from "next/navigation";
+import BasicButton from "@/components/ui-elements/button/BasicButton";
 
 export default function TripScheduleCard() {
   const [weatherArrayData, setWeatherArrayData] = useState<any[]>([]);
@@ -40,6 +42,11 @@ export default function TripScheduleCard() {
     }
   }
 
+  // ページ遷移
+  const router = useRouter();
+  const handleClick = (id: number) => () => {
+    router.push(`/trip/${id}`);
+  };
   useEffect(() => {
     getWeatherArrayData();
   }, []);
@@ -50,25 +57,18 @@ export default function TripScheduleCard() {
         <div className="flex justify-center">
           <h1 className="text-2xl font-bold text-center mt-4">出船予定</h1>
         </div>
-        {tripsArrayData && Object.keys(tripsArrayData).length > 0 ? (
-          weatherArrayData.length > 0 ? (
-            weatherArrayData.map((data, index) => (
-              <div key={index}>
-                <div className="flex justify-center">
-                  {/* departure_timeから日付を取り出す */}
-                  {/* <h2 className="text-xl">{new Date(data.trip.departure_time).toLocaleDateString()}</h2> */}
-                  <h2 className="text-xl">地点名</h2>
-                </div>
-                <DailyWeatherDetail key={index} weatherData={data} />
+        {tripsArrayData && weatherArrayData && tripsArrayData.length > 0 && weatherArrayData.length > 0 ? (
+          weatherArrayData.map((weatherData, index) => (
+            <div key={index} onClick={handleClick(tripsArrayData[index].trip.id)} className="cursor-pointer">
+              <div className="flex justify-center">
+                <h2 className="text-xl">{}</h2>
+                <h2 className="text-xl">{tripsArrayData[index].trip.departure_time}</h2>
               </div>
-            ))
-          ) : (
-            <FetchLoading />
-          )
+              <DailyWeatherDetail weatherData={weatherData} />
+            </div>
+          ))
         ) : (
-          <div className="flex justify-center">
-            <h2 className="text-xl">出船予定の情報がありません</h2>
-          </div>
+          <FetchLoading />
         )}
       </CardBodyWrapper>
     </CardWrapper>

@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 import DisplaySplitWrapper from "../../layoutWrapper/display/DisplaySplitWrapper";
 import CardWrapper from "../../layoutWrapper/card/CardWrapper";
 import InputField from "@/components/ui-elements/input/InputField";
 import ToggleSwitch from "@/components/ui-elements/switch/ToggleSwitch";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
-import axios from "axios";
-import { useRouter } from "next/navigation";
 import WarningFlashMessage from "@/components/ui-parts/flashMessage/WarningFlashMessage";
 
 export default function TripRegisterLayout() {
@@ -60,7 +60,7 @@ export default function TripRegisterLayout() {
     <DisplaySplitWrapper leftPosition={true}>
       <CardWrapper className="flex items-center justify-center">
         {flashMessage && <WarningFlashMessage message="出船予定の登録に失敗しました" />}
-        <h1 className="text-3xl font-bold m-8">出船登録</h1>
+        <h1 className="text-2xl font-bold m-8">出船登録</h1>
         <form onSubmit={registerTrip} className="w-full max-w-sm">
           <InputField label="出船時間" id="departureTime" type="time" />
           <p>日の出 6:00</p>

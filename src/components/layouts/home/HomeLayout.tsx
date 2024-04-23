@@ -6,8 +6,6 @@ import TripScheduleCard from "@/components/ui-parts/card/schedule/TripScheduleCa
 import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
 
 export default function HomeLayout() {
-  // ここにクッキー内に保存されたユーザーがあるかどうかを確認する処理を追加
-  // なければ、ログイン画面にリダイレクトする処理を追加
   return (
     <DisplaySplitWrapper>
       <OngoingTripCard detailToggle={false} />

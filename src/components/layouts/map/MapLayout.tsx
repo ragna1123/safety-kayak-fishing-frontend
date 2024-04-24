@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
+import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
 import GoogleMap from "@/components/ui-parts/map/GoogleMap";
 import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { registerLocationState } from "@/common/states/registerLocationState";
-import TripRegisterLayout from "../trip/register/TripRegisterLayout";
+import TripRegisterLayout from "../trip/TripRegisterLayout";
 
 export default function MapLayout() {
   // ここはお気に入りをリコイルに保存して、それを取得して表示する処理を追加

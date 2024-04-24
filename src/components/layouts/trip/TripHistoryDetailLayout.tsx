@@ -1,9 +1,9 @@
 import ToggleFavoriteIcon from "@/components/ui-parts/button/ToggleFavoriteIcon";
 import DailyWeatherForecastTable from "@/components/ui-parts/trip/location/weather/DailyWeatherForecastTable";
 import React from "react";
-import DisplaySplitWrapper from "../../layoutWrapper/display/DisplaySplitWrapper";
-import CardWrapper from "../../layoutWrapper/card/CardWrapper";
-import CardBodyWrapper from "../../layoutWrapper/card/CardBodyWrapper";
+import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
+import CardWrapper from "../_layoutWrapper/card/CardWrapper";
+import CardBodyWrapper from "../_layoutWrapper/card/CardBodyWrapper";
 
 export default function TripHistoryDetailLayout() {
   return (
@@ -15,9 +15,7 @@ export default function TripHistoryDetailLayout() {
             <h2 className="text-2xl font-bold">地点名</h2>
             <ToggleFavoriteIcon />
           </div>
-          <h1 className="text-xl font-bold text-center mt-2 mb-4">
-            地点名詳細
-          </h1>
+          <h1 className="text-xl font-bold text-center mt-2 mb-4">地点名詳細</h1>
           <p className="text-lg m-2">出船日時: 2024 4/16 6:00 - 13:00</p>
         </div>
 

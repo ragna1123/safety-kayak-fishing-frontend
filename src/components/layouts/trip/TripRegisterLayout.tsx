@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import DisplaySplitWrapper from "../../layoutWrapper/display/DisplaySplitWrapper";
-import CardWrapper from "../../layoutWrapper/card/CardWrapper";
+import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
+import CardWrapper from "../_layoutWrapper/card/CardWrapper";
 import InputField from "@/components/ui-elements/input/InputField";
 import ToggleSwitch from "@/components/ui-elements/switch/ToggleSwitch";
 import BasicButton from "@/components/ui-elements/button/BasicButton";

@@ -1,11 +1,11 @@
+import TripScheduleCard from "@/components/ui-parts/card/TripScheduleCard";
 import React from "react";
-import FavoriteCard from "@/components/ui-parts/card/FavoriteCard";
 import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
 
-export default function FavoriteLayout() {
+export default function TripScheduleLayout() {
   return (
     <DisplaySplitWrapper>
-      <FavoriteCard />
+      <TripScheduleCard />
     </DisplaySplitWrapper>
   );
 }

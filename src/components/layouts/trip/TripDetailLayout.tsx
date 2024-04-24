@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
-import DisplaySplitWrapper from "../../layoutWrapper/display/DisplaySplitWrapper";
-import CardWrapper from "../../layoutWrapper/card/CardWrapper";
-import CardBodyWrapper from "../../layoutWrapper/card/CardBodyWrapper";
+import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
+import CardWrapper from "../_layoutWrapper/card/CardWrapper";
+import CardBodyWrapper from "../_layoutWrapper/card/CardBodyWrapper";
 import DailyWeatherDetail from "@/components/ui-elements/weatherForecast/DailyWeatherDetail";
 import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";
 import WarningFlashMessage from "@/components/ui-parts/flashMessage/WarningFlashMessage";
@@ -18,7 +18,7 @@ export default function TripDetailLayout() {
   const params = useParams(); // パラメータを取得
   const router = useRouter();
 
-  // 旅行の詳細情報を取得する関数
+  // 詳細情報を取得する関数
   async function fetchTripDetail() {
     try {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/trips/${params.id}`, { withCredentials: true });

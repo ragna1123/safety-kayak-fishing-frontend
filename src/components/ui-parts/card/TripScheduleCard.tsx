@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import DailyWeatherDetail from "@/components/ui-elements/weatherForecast/DailyWeatherDetail";
-import CardBodyWrapper from "@/components/layouts/layoutWrapper/card/CardBodyWrapper";
-import CardWrapper from "@/components/layouts/layoutWrapper/card/CardWrapper";
+import CardBodyWrapper from "@/components/layouts/_layoutWrapper/card/CardBodyWrapper";
+import CardWrapper from "@/components/layouts/_layoutWrapper/card/CardWrapper";
 import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";
 import FetchLoading from "@/components/ui-elements/icon/loading/FetchLoading";
 import { useRouter } from "next/navigation";

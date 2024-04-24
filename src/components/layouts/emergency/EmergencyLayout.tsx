@@ -1,16 +1,14 @@
 import React from "react";
-import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
-import CardWrapper from "../layoutWrapper/card/CardWrapper";
-import CardBodyWrapper from "../layoutWrapper/card/CardBodyWrapper";
+import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
+import CardWrapper from "../_layoutWrapper/card/CardWrapper";
+import CardBodyWrapper from "../_layoutWrapper/card/CardBodyWrapper";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 
 export default function EmergencyLayout() {
   return (
     <DisplaySplitWrapper>
       <CardWrapper>
-        <h1 className="text-2xl font-bold text-center mt-4 mb-4">
-          緊急連絡先一覧
-        </h1>
+        <h1 className="text-2xl font-bold text-center mt-4 mb-4">緊急連絡先一覧</h1>
 
         <CardBodyWrapper>
           <div className="overflow-x-auto w-full">

@@ -78,7 +78,7 @@ export default function EmergencyLayout() {
                     <td>{contact.relationship}</td>
                     <td>{contact.email}</td>
                     <td onClick={() => deleteEmergencyContact(contact.id)}>
-                      <DeleteIcon className="transition-colors duration-300 ease-in-out hover:cursor-pointer rounded-lg" />
+                      <DeleteIcon className="transition-colors duration-300 ease-in-out hover:cursor-pointer" />
                     </td>
                   </tr>
                 ))}

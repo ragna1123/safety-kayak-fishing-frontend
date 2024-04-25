@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
+import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
 
 export default function HeroSection() {
   return (

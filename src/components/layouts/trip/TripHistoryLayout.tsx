@@ -1,8 +1,8 @@
 import DailyWeatherDetail from "@/components/ui-elements/weatherForecast/DailyWeatherDetail";
 import React from "react";
-import DisplaySplitWrapper from "../../layoutWrapper/display/DisplaySplitWrapper";
-import CardWrapper from "../../layoutWrapper/card/CardWrapper";
-import CardBodyWrapper from "../../layoutWrapper/card/CardBodyWrapper";
+import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
+import CardWrapper from "../_layoutWrapper/card/CardWrapper";
+import CardBodyWrapper from "../_layoutWrapper/card/CardBodyWrapper";
 
 export default function TripHistoryLayout() {
   return (

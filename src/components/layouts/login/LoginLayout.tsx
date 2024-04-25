@@ -2,9 +2,9 @@
 import React, { useState } from "react";
 import InputForm from "@/components/ui-parts/from/InputForm";
 import TextLink from "@/components/ui-elements/link/TextLink";
-import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
-import CardWrapper from "../layoutWrapper/card/CardWrapper";
-import CardBodyWrapper from "../layoutWrapper/card/CardBodyWrapper";
+import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
+import CardWrapper from "../_layoutWrapper/card/CardWrapper";
+import CardBodyWrapper from "../_layoutWrapper/card/CardBodyWrapper";
 import CardTitleH2 from "@/components/ui-elements/card/CardTitleH2";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 import axios from "axios";

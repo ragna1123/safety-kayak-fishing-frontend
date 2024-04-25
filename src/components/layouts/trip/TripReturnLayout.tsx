@@ -1,8 +1,8 @@
 import InputForm from "@/components/ui-parts/from/InputForm";
 import TextareaForm from "@/components/ui-parts/from/TextareaForm";
 import React from "react";
-import DisplaySplitWrapper from "../../layoutWrapper/display/DisplaySplitWrapper";
-import CardWrapper from "../../layoutWrapper/card/CardWrapper";
+import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
+import CardWrapper from "../_layoutWrapper/card/CardWrapper";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 
 export default function GoingTripLayout() {
@@ -17,20 +17,8 @@ export default function GoingTripLayout() {
         <h2 className="text-xl font-bold text-center mt-2">地点名詳細</h2>
         <div className="card-body">
           <form action="#" className="space-y-6">
-            <InputForm
-              label="タイトル"
-              type="text"
-              placeholder="タイトルを入力"
-              id="title"
-              value=""
-              onChange={(e) => e.target.value}
-            />
-            <TextareaForm
-              label="報告内容"
-              row={8}
-              placeholder="報告内容を入力"
-              id="report"
-            />
+            <InputForm label="タイトル" type="text" placeholder="タイトルを入力" id="title" value="" onChange={(e) => e.target.value} />
+            <TextareaForm label="報告内容" row={8} placeholder="報告内容を入力" id="report" />
             <BasicButton label="帰投報告" className="btn-success m-8" />
           </form>
         </div>

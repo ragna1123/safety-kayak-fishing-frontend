@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect } from "react";
-import LocationCard from "@/components/ui-parts/card/location/LocationCard";
-import CardBodyWrapper from "../layoutWrapper/card/CardBodyWrapper";
+import LocationCard from "@/components/ui-parts/card/LocationCard";
+import CardBodyWrapper from "../_layoutWrapper/card/CardBodyWrapper";
 import { useRecoilState } from "recoil";
 import { locationState } from "@/common/states/locationState";
-import DisplaySplitWrapper from "../layoutWrapper/display/DisplaySplitWrapper";
-import CardWrapper from "../layoutWrapper/card/CardWrapper";
+import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
+import CardWrapper from "../_layoutWrapper/card/CardWrapper";
 
 export default function LocationLayout() {
   const [locationData, setLocationData] = useRecoilState(locationState);

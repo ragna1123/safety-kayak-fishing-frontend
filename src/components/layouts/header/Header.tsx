@@ -23,7 +23,7 @@ export default function Header() {
               <a href="/profile">Profile</a>
             </li>
             <li>
-              <a href="/settings">Settings</a>
+              <a href="/emergency">Emergency</a>
             </li>
             <li>
               <a href="/logout">Logout</a>

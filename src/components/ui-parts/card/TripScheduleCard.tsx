@@ -4,7 +4,7 @@ import DailyWeatherDetail from "@/components/ui-elements/weatherForecast/DailyWe
 import CardBodyWrapper from "@/components/layouts/_layoutWrapper/card/CardBodyWrapper";
 import CardWrapper from "@/components/layouts/_layoutWrapper/card/CardWrapper";
 import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";
-import FetchLoading from "@/components/ui-elements/icon/loading/FetchLoading";
+import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import { useRouter } from "next/navigation";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 

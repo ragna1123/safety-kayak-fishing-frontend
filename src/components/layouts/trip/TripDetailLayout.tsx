@@ -8,7 +8,7 @@ import CardBodyWrapper from "../_layoutWrapper/card/CardBodyWrapper";
 import DailyWeatherDetail from "@/components/ui-elements/weatherForecast/DailyWeatherDetail";
 import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";
 import WarningFlashMessage from "@/components/ui-parts/flashMessage/WarningFlashMessage";
-import FetchLoading from "@/components/ui-elements/icon/loading/FetchLoading";
+import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 
 export default function TripDetailLayout() {

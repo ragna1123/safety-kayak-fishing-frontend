@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import DailyWeatherDetail from "@/components/ui-elements/weatherForecast/DailyWeatherDetail";
-import FetchLoading from "@/components/ui-elements/icon/loading/FetchLoading";
+import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 import WeeklyWeatherForecast from "@/components/ui-elements/weatherForecast/WeeklyWeatherForecast";
 import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";

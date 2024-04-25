@@ -4,7 +4,7 @@ import WeeklyWeatherForecast from "@/components/ui-elements/weatherForecast/Week
 import CardWrapper from "@/components/layouts/_layoutWrapper/card/CardWrapper";
 import CardBodyWrapper from "@/components/layouts/_layoutWrapper/card/CardBodyWrapper";
 import { FetchWeeklyWeatherData } from "@/components/serverComponents/FetchWeeklyWeatherData";
-import FetchLoading from "@/components/ui-elements/icon/loading/FetchLoading";
+import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 
 export default function FavoriteCard() {
   const [weeklyWeatherData, setWeeklyWeatherData] = useState<any[]>([]);

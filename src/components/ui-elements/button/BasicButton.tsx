@@ -5,6 +5,7 @@ type BasicButtonProps = {
   label: string;
   className?: string;
   buttonClassName?: string;
+  type?: "button" | "submit" | "reset";
   onClick?: () => void;
 };
 

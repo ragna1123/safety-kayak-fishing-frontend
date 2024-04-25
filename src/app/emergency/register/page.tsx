@@ -1,15 +1,16 @@
+import DisplayFlexWrapper from "@/components/layouts/_layoutWrapper/display/DisplayFlexWrapper";
 import EmergencyLayout from "@/components/layouts/emergency/EmergencyLayout";
-import EmergencyDetailLayout from "@/components/layouts/emergency/EmergencyDetailLayout";
+import EmergencyRegisterLayout from "@/components/layouts/emergency/EmergencyRegisterLayout";
 import Header from "@/components/layouts/header/Header";
 
 export default function EmergencyRegister() {
   return (
     <>
       <Header />
-      <div className="flex flex-col md:flex-row min-h-screen">
-        <EmergencyDetailLayout />
+      <DisplayFlexWrapper>
+        <EmergencyRegisterLayout />
         <EmergencyLayout />
-      </div>
+      </DisplayFlexWrapper>
     </>
   );
 }

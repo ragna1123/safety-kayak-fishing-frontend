@@ -3,7 +3,7 @@ import CardWrapper from "@/components/layouts/_layoutWrapper/card/CardWrapper";
 import CardBodyWrapper from "@/components/layouts/_layoutWrapper/card/CardBodyWrapper";
 import DailyWeatherDetail from "@/components/ui-elements/weatherForecast/DailyWeatherDetail";
 import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";
-import FetchLoading from "@/components/ui-elements/icon/loading/FetchLoading";
+import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 
 export default function OngoingTripCard({ detailToggle }: { detailToggle: boolean }) {

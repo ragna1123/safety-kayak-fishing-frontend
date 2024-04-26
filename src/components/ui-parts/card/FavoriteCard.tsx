@@ -3,36 +3,58 @@ import React, { useEffect, useState } from "react";
 import WeeklyWeatherForecast from "@/components/ui-elements/weatherForecast/WeeklyWeatherForecast";
 import CardWrapper from "@/components/layouts/_layoutWrapper/card/CardWrapper";
 import CardBodyWrapper from "@/components/layouts/_layoutWrapper/card/CardBodyWrapper";
-import { FetchWeeklyWeatherData } from "@/components/serverComponents/FetchWeeklyWeatherData";
 import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
+import { FetchWeeklyWeatherData } from "@/components/serverComponents/FetchWeeklyWeatherData";
+import FetchLocationName from "@/components/serverComponents/FetchLocationName";
 
 export default function FavoriteCard() {
-  const [weeklyWeatherData, setWeeklyWeatherData] = useState<any[]>([]);
-  const [favoriteLocations, setFavoriteLocations] = useState<any[]>([]);
+  const [weeklyWeatherData, setWeeklyWeatherData] = useState([]);
+  const [favoriteLocations, setFavoriteLocations] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  async function getWeeklyWeatherData() {
+  async function getFavoriteLocations() {
+    setIsLoading(true);
     try {
-      const favoriteLocationsResponse = await fetch(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/favorite_locations`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/favorite_locations`, {
         credentials: "include",
       });
-      const favoriteLocationsData = await favoriteLocationsResponse.json();
-      setFavoriteLocations(favoriteLocationsData.data);
-      console.log("favoriteLocationsData", favoriteLocationsData);
+      const data = await response.json();
+      if (response.ok) {
+        setFavoriteLocations(data.data);
+        getWeatherData(data.data);
+      } else {
+        throw new Error("Failed to fetch favorite locations");
+      }
+    } catch (error) {
+      console.error("Error fetching favorite locations:", error);
+      setFavoriteLocations([]);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
-      const weeklyWeatherDataPromises = favoriteLocationsData.data.map(async (location: any) => {
-        return await FetchWeeklyWeatherData(location);
+  async function getWeatherData(locations: { latitude: number; longitude: number }[]) {
+    try {
+      const weatherDataPromises = locations.map(async (location) => {
+        const weather = await FetchWeeklyWeatherData(location);
+        const locationName = await FetchLocationName(location);
+        return weather ? { ...weather, locationName } : null;
       });
 
-      const results = await Promise.all(weeklyWeatherDataPromises);
-      setWeeklyWeatherData(results.filter((data) => data !== null));
+      const weatherData = await Promise.all(weatherDataPromises);
+      setWeeklyWeatherData(weatherData.filter(Boolean) as any);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching weather data:", error);
     }
   }
 
   useEffect(() => {
-    getWeeklyWeatherData();
+    getFavoriteLocations();
   }, []);
+
+  if (isLoading) {
+    return <FetchLoading />;
+  }
 
   return (
     <CardWrapper>
@@ -40,23 +62,19 @@ export default function FavoriteCard() {
         <h1 className="text-2xl font-bold text-center mt-4">お気に入り地点</h1>
       </div>
       <CardBodyWrapper>
-        {favoriteLocations && Object.keys(favoriteLocations).length > 0 ? (
+        {favoriteLocations.length > 0 ? (
           weeklyWeatherData.length > 0 ? (
             weeklyWeatherData.map((data, index) => (
-              <div key={index}>
-                <div className="flex justify-center">
-                  <h2 className="text-xl">地点名</h2>
-                </div>
+              <>
+                <h2 className="text-xl text-center">{data.locationName}</h2>
                 <WeeklyWeatherForecast key={index} weatherData={data} />
-              </div>
+              </>
             ))
           ) : (
-            <FetchLoading />
+            <p className="text-xl text-center">天気情報が見つかりませんでした。</p>
           )
         ) : (
-          <div className="flex justify-center">
-            <h2 className="text-xl">お気に入り地点がありません</h2>
-          </div>
+          <h2 className="text-xl text-center">お気に入り地点がありません</h2>
         )}
       </CardBodyWrapper>
     </CardWrapper>

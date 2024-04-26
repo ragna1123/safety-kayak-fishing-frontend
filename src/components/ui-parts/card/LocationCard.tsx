@@ -9,6 +9,7 @@ import { FetchWeeklyWeatherData } from "@/components/serverComponents/FetchWeekl
 import { useRecoilValue } from "recoil";
 import { locationState } from "@/common/states/locationState";
 import { useRouter } from "next/navigation";
+import ErrorFlashMessage from "../flashMessage/ErrorFlashMessage";
 
 export default function LocationCard() {
   const router = useRouter();
@@ -18,15 +19,11 @@ export default function LocationCard() {
   const [error, setError] = useState("");
 
   const locationData = useRecoilValue(locationState);
-  //trip/registerに遷移する関数
-  const onClick = () => {
-    router.push("/trip/register");
-  };
 
   async function getWeatherData() {
     if (!locationData || !locationData?.lng || !locationData?.lat) {
       setError("位置情報が無効です。");
-      return;
+      router.push("/home");
     }
 
     setLoading(true);
@@ -37,8 +34,8 @@ export default function LocationCard() {
         departure_time: new Date().getTime(),
       },
       location_data: {
-        latitude: locationData.lat,
-        longitude: locationData.lng,
+        latitude: locationData?.lat,
+        longitude: locationData?.lng,
       },
     };
 
@@ -55,13 +52,18 @@ export default function LocationCard() {
     }
   }
 
+  //trip/registerに遷移する関数
+  const onClick = () => {
+    router.push("/trip/register");
+  };
+
   useEffect(() => {
     getWeatherData();
   }, [locationData]);
 
   return (
     <>
-      {error && <div>エラー: {error}</div>}
+      {error && <ErrorFlashMessage message={error} />}
       {loading ? (
         <FetchLoading />
       ) : weatherData ? (

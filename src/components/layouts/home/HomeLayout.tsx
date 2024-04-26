@@ -11,14 +11,12 @@ import { useRouter } from "next/navigation";
 export default function HomeLayout() {
   const [emergencyContacts, setEmergencyContacts] = useState([]);
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
   // 最初に緊急連絡先の取得して登録されているか確認
   const fetchEmergencyContact = async () => {
     try {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/emergency_contacts`, { withCredentials: true });
-      console.log("Emergency contacts:", res.data);
       const emergencyContacts = res.data.data;
       if (emergencyContacts && emergencyContacts.length > 0) {
         setEmergencyContacts(emergencyContacts);
@@ -29,8 +27,6 @@ export default function HomeLayout() {
     } catch (error) {
       console.error("Failed to fetch emergency contacts:", error);
       setError("緊急連絡先が登録されていません");
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -45,20 +41,14 @@ export default function HomeLayout() {
 
   return (
     <DisplaySplitWrapper>
-      {isLoading ? (
-        <div className="w-full text-center">Loading...</div>
-      ) : (
-        <>
-          {emergencyContacts.length === 0 && error && (
-            <div className="w-full cursor-pointer" onClick={navigateToEmergencyRegister}>
-              <WarningFlashMessage message={error} />
-            </div>
-          )}
-          <OngoingTripCard detailToggle={false} />
-          <TripScheduleCard />
-          <FavoriteCard />
-        </>
+      {emergencyContacts.length === 0 && error && (
+        <div className="w-full cursor-pointer" onClick={navigateToEmergencyRegister}>
+          <WarningFlashMessage message={error} />
+        </div>
       )}
+      <OngoingTripCard detailToggle={false} />
+      <TripScheduleCard />
+      <FavoriteCard />
     </DisplaySplitWrapper>
   );
 }

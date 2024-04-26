@@ -1,10 +1,10 @@
 "use client";
-// components/GoogleMap.js
 import React, { useRef, useEffect } from "react";
 import { useGoogleMap } from "@/common/hooks/useGoogleMap";
 import { useRouter } from "next/navigation";
 import { useRecoilState } from "recoil";
 import { locationState } from "@/common/states/locationState";
+import FetchLocationName from "@/components/serverComponents/FetchLocationName";
 
 const GoogleMap = ({ locations }) => {
   const googleMapRef = useRef(null);
@@ -12,57 +12,48 @@ const GoogleMap = ({ locations }) => {
   const { googleMap, marker, setMarker } = useGoogleMap(googleMapRef, locations);
   const [recoilLocation, setRecoilLocation] = useRecoilState(locationState);
 
-  // マップ初期化とマーカーの配置
+  // マップ初期化とマーカーの設定
   useEffect(() => {
-    const initializeMap = () => {
-      if (window.google && !googleMap) {
-        const storedLocation = sessionStorage.getItem("location");
-        let initialLocation = storedLocation ? JSON.parse(storedLocation) : null;
+    if (!googleMap && window.google) {
+      const initialLocation = recoilLocation || { lat: 35.681236, lng: 139.767125 };
+      const map = new google.maps.Map(googleMapRef.current, {
+        center: initialLocation,
+        zoom: 12,
+      });
+      const newMarker = new google.maps.Marker({
+        position: initialLocation,
+        map: map,
+        title: "Initial Location",
+      });
+      setMarker(newMarker);
+    }
+  }, [recoilLocation, setMarker, googleMap]);
 
-        if (!initialLocation && recoilLocation?.lat && recoilLocation?.lng) {
-          initialLocation = recoilLocation;
-        }
-
-        const initialConfig = {
-          center: initialLocation,
-          zoom: 12,
-        };
-
-        const map = new google.maps.Map(googleMapRef.current, initialConfig);
-        setMarker(
-          new google.maps.Marker({
-            position: initialConfig.center,
-            map: map,
-            title: "Initial Location",
-          })
-        );
+  // クリックイベントの設定
+  useEffect(() => {
+    const handleMapClick = async (e) => {
+      if (marker) {
+        marker.setMap(null);
       }
+      const newMarker = new google.maps.Marker({
+        position: e.latLng,
+        map: googleMap,
+      });
+      setMarker(newMarker);
+
+      const locationName = await FetchLocationName({ location_data: { latitude: e.latLng.lat(), longitude: e.latLng.lng() } });
+
+      setRecoilLocation({ lat: e.latLng.lat(), lng: e.latLng.lng(), locationName });
+
+      router.push("/location");
     };
 
-    initializeMap();
-  }, [recoilLocation, setMarker, setRecoilLocation, googleMap]);
-
-  useEffect(() => {
     if (googleMap) {
-      const clickListener = google.maps.event.addListener(googleMap, "click", (e) => {
-        if (marker) {
-          marker.setMap(null);
-        }
+      const clickListener = google.maps.event.addListener(googleMap, "click", handleMapClick);
 
-        const newMarker = new google.maps.Marker({
-          position: e.latLng,
-          map: googleMap,
-        });
-
-        setMarker(newMarker);
-        setRecoilLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() });
-        sessionStorage.setItem("location", JSON.stringify({ lat: e.latLng.lat(), lng: e.latLng.lng() }));
-
-        router.push("/location");
-      });
-
+      // クリーンアップ関数
       return () => {
-        google.maps.event.clearListeners(googleMap, "click");
+        google.maps.event.removeListener(clickListener);
       };
     }
   }, [googleMap, setMarker, marker, setRecoilLocation, router]);

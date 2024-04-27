@@ -18,10 +18,10 @@ export default function LocationCard() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const locationData = useRecoilValue(locationState);
+  const locationRecoilData = useRecoilValue(locationState);
 
   async function getWeatherData() {
-    if (!locationData || !locationData?.lng || !locationData?.lat) {
+    if (!locationRecoilData || !locationRecoilData?.longitude || !locationRecoilData?.latitude) {
       setError("位置情報が無効です。");
       router.push("/home");
     }
@@ -34,8 +34,8 @@ export default function LocationCard() {
         departure_time: new Date().getTime(),
       },
       location_data: {
-        latitude: locationData?.lat,
-        longitude: locationData?.lng,
+        latitude: locationRecoilData?.latitude,
+        longitude: locationRecoilData?.longitude,
       },
     };
 
@@ -59,7 +59,7 @@ export default function LocationCard() {
 
   useEffect(() => {
     getWeatherData();
-  }, [locationData]);
+  }, [locationRecoilData]);
 
   return (
     <>

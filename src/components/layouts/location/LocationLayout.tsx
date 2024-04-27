@@ -6,28 +6,30 @@ import { useRecoilValue } from "recoil";
 import { locationState } from "@/common/states/locationState";
 import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
 import CardWrapper from "../_layoutWrapper/card/CardWrapper";
+import { useRouter } from "next/navigation";
 
 interface LocationState {
   locationName: string;
-  lat?: number; // 緯度
-  lng?: number; // 経度
+  latitude?: number; // 緯度
+  longitude?: number; // 経度
 }
 
 export default function LocationLayout() {
-  const location: LocationState = useRecoilValue<LocationState>(locationState);
+  const locationRecoilData: LocationState = useRecoilValue<LocationState>(locationState);
+  const router = useRouter();
 
-  if (!location) {
-    return <p>地点名が見つかりませんでした</p>;
+  if (!locationRecoilData) {
+    router.push("/home");
   }
 
   return (
     <DisplaySplitWrapper>
       <CardWrapper>
         <div className="flex justify-center p-4 mt-4 items-center">
-          <h1 className="text-2xl font-bold">{location.locationName}</h1>
+          <h1 className="text-2xl font-bold">{locationRecoilData?.locationName}</h1>
         </div>
         <CardBodyWrapper>
-          <LocationCard locationData={location} />
+          <LocationCard />
         </CardBodyWrapper>
       </CardWrapper>
     </DisplaySplitWrapper>

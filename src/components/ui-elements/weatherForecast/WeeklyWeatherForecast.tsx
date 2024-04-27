@@ -19,13 +19,17 @@ export default function WeeklyWeatherForecast({ weatherData }: any) {
         <table className="table table-zebra w-full text-sm">
           <thead>
             <tr>
-              <th className="py-2 px-12">月/日</th>
-              {weatherData.days?.map((data: any, index: number) => <td key={index}>{data.datetime}</td>)}
+              <th className="py-1 px-10">月/日</th>
+              {weatherData.days?.map((data: any, index: number) => (
+                <td key={index} className=" transition hover:bg-slate-600 rounded-lg cursor-pointer">
+                  {data.datetime}
+                </td>
+              ))}
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td className="py-2">天気</td>
+              <td className="py-1">天気</td>
               {weatherData.days?.map((data: any, index: number) => (
                 <td className="text-stone-200" key={index}>
                   {data.conditions}
@@ -33,7 +37,7 @@ export default function WeeklyWeatherForecast({ weatherData }: any) {
               ))}
             </tr>
             <tr>
-              <td className="py-2">気温</td>
+              <td className="py-1">気温</td>
               {weatherData.days?.map((data: any, index: number) => (
                 <td className="text-orange-500" key={index}>
                   {data.temp}°C
@@ -41,7 +45,7 @@ export default function WeeklyWeatherForecast({ weatherData }: any) {
               ))}
             </tr>
             <tr>
-              <td className="py-2">風速</td>
+              <td className="py-1">風速</td>
               {weatherData.days?.map((data: any, index: number) => (
                 <td className="text-lime-300" key={index}>
                   {data.windspeed}m/s

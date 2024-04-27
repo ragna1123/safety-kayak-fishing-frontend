@@ -94,13 +94,13 @@ export default function TripDetailLayout() {
         <CardBodyWrapper>
           {flashMessage && <WarningFlashMessage message="情報の取得に失敗しました" />}
           <div className="flex justify-center">
-            <h1 className="text-2xl font-bold text-center mt-4">出船予定</h1>
+            <h1 className="text-3xl font-bold text-center mt-4">出船予定</h1>
           </div>
           {tripData && Object.keys(tripData).length > 0 ? (
             weatherData.length > 0 ? (
               <>
                 <div className="flex justify-center">
-                  <h2 className="text-xl">地点名</h2>
+                  <h2 className="text-xl">{tripData.trip.details}</h2>
                 </div>
                 <div className="flex justify-center">
                   <h4 className="text-md px-1">{tripData.trip.departure_time}</h4>

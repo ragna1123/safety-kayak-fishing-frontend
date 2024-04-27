@@ -15,7 +15,9 @@ const GoogleMap = ({ locations }) => {
   // マップ初期化とマーカーの設定
   useEffect(() => {
     if (!googleMap && window.google) {
-      const initialLocation = recoilLocation || { lat: 35.681236, lng: 139.767125 };
+      const lat = recoilLocation?.latitude || 35.681236;
+      const lng = recoilLocation?.longitude || 139.767125;
+      const initialLocation = { lat, lng };
       const map = new google.maps.Map(googleMapRef.current, {
         center: initialLocation,
         zoom: 12,
@@ -43,7 +45,7 @@ const GoogleMap = ({ locations }) => {
 
       const locationName = await FetchLocationName({ location_data: { latitude: e.latLng.lat(), longitude: e.latLng.lng() } });
 
-      setRecoilLocation({ lat: e.latLng.lat(), lng: e.latLng.lng(), locationName });
+      setRecoilLocation({ latitude: e.latLng.lat(), longitude: e.latLng.lng(), locationName });
 
       router.push("/location");
     };

@@ -6,7 +6,8 @@ export default async function FetchLocationName(location: { latitude: number; lo
   try {
     const response = await axios.get(url);
     if (response.data.results.length > 0) {
-      return response.data.results[0].formatted_address; // 最も詳細な住所を返す
+      const nameData = response.data.results[0].formatted_address; // 最も詳細な住所を返す
+      return nameData.replace(/^\s*日本、\s*/, ""); // 文字列の開始部分からの「日本、」と前後の空白を削除
     } else {
       throw new Error("No results found for the given coordinates.");
     }

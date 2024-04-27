@@ -10,30 +10,9 @@ import FetchLocationName from "@/components/serverComponents/FetchLocationName";
 export default function FavoriteCard() {
   const [weeklyWeatherData, setWeeklyWeatherData] = useState([]);
   const [favoriteLocations, setFavoriteLocations] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  async function getFavoriteLocations() {
-    setIsLoading(true);
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/favorite_locations`, {
-        credentials: "include",
-      });
-      const data = await response.json();
-      if (response.ok) {
-        setFavoriteLocations(data.data);
-        getWeatherData(data.data);
-      } else {
-        throw new Error("Failed to fetch favorite locations");
-      }
-    } catch (error) {
-      console.error("Error fetching favorite locations:", error);
-      setFavoriteLocations([]);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  async function getWeatherData(locations: { latitude: number; longitude: number }[]) {
+  async function getWeatherData(locations) {
     try {
       const weatherDataPromises = locations.map(async (location) => {
         const weather = await FetchWeeklyWeatherData(location);
@@ -42,9 +21,28 @@ export default function FavoriteCard() {
       });
 
       const weatherData = await Promise.all(weatherDataPromises);
-      setWeeklyWeatherData(weatherData.filter(Boolean) as any);
+      setWeeklyWeatherData(weatherData.filter(Boolean));
     } catch (error) {
       console.error("Error fetching weather data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function getFavoriteLocations() {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/favorite_locations`, {
+        credentials: "include",
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setFavoriteLocations(data.data);
+        await getWeatherData(data.data);
+      } else {
+        throw new Error("Failed to fetch favorite locations");
+      }
+    } catch (error) {
+      console.error("Error fetching favorite locations:", error);
     }
   }
 
@@ -52,29 +50,23 @@ export default function FavoriteCard() {
     getFavoriteLocations();
   }, []);
 
-  if (isLoading) {
-    return <FetchLoading />;
-  }
-
   return (
     <CardWrapper>
       <div className="flex justify-center">
         <h1 className="text-2xl font-bold text-center mt-4">お気に入り地点</h1>
       </div>
       <CardBodyWrapper>
-        {favoriteLocations.length > 0 ? (
-          weeklyWeatherData.length > 0 ? (
-            weeklyWeatherData.map((data, index) => (
-              <>
-                <h2 className="text-xl text-center">{data.locationName}</h2>
-                <WeeklyWeatherForecast key={index} weatherData={data} />
-              </>
-            ))
-          ) : (
-            <p className="text-xl text-center">天気情報が見つかりませんでした。</p>
-          )
+        {isLoading ? (
+          <FetchLoading />
+        ) : favoriteLocations.length > 0 && weeklyWeatherData.length > 0 ? (
+          weeklyWeatherData.map((data, index) => (
+            <React.Fragment key={index}>
+              <h2 className="text-xl text-center">{data.locationName}</h2>
+              <WeeklyWeatherForecast weatherData={data} />
+            </React.Fragment>
+          ))
         ) : (
-          <h2 className="text-xl text-center">お気に入り地点がありません</h2>
+          <p className="text-xl text-center">天気情報が見つかりませんでした。</p>
         )}
       </CardBodyWrapper>
     </CardWrapper>

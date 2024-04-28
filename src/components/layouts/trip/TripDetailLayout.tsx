@@ -36,10 +36,6 @@ export default function TripDetailLayout() {
         lng: Number(resTripData.location_data.longitude),
       };
 
-      // マップに表示するためにセッションストレージに位置情報を保存
-      // うまくいかず
-      sessionStorage.setItem("location", JSON.stringify(locationData));
-
       // 取得したデータを状態にセット
       setTripData(resTripData);
 
@@ -105,6 +101,13 @@ export default function TripDetailLayout() {
                 <div className="flex justify-center">
                   <h4 className="text-md px-1">{tripData.trip.departure_time}</h4>
                   <h4 className="text-md px-1">{tripData.trip.estimated_return_time}</h4>
+                </div>
+                <div>
+                  <h2 className="text-xl">日の出</h2>
+                  <p>{tripData.trip.sunrise_time}</p>
+
+                  <h2 className="text-xl">日の入</h2>
+                  <p>{tripData.trip.sunset_time}</p>
                 </div>
                 <DailyWeatherDetail weatherData={weatherData} detailToggle={true} />
                 {/* <BasicButton label="削除" className="btn-info" buttonClassName="text-slate-700" onClick={}/> */}

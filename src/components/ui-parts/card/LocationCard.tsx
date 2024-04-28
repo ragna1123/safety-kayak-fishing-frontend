@@ -1,15 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import DailyWeatherDetail from "@/components/ui-elements/weatherForecast/DailyWeatherDetail";
+import WeeklyWeatherForecast from "@/components/ui-elements/weatherForecast/WeeklyWeatherForecast";
 import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
-import WeeklyWeatherForecast from "@/components/ui-elements/weatherForecast/WeeklyWeatherForecast";
+import ErrorFlashMessage from "../flashMessage/ErrorFlashMessage";
 import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";
 import { FetchWeeklyWeatherData } from "@/components/serverComponents/FetchWeeklyWeatherData";
 import { useRecoilValue } from "recoil";
 import { locationState } from "@/common/states/locationState";
 import { useRouter } from "next/navigation";
-import ErrorFlashMessage from "../flashMessage/ErrorFlashMessage";
 
 export default function LocationCard() {
   const router = useRouter();
@@ -20,15 +20,20 @@ export default function LocationCard() {
 
   const locationRecoilData = useRecoilValue(locationState);
 
-  async function getWeatherData() {
-    if (!locationRecoilData || !locationRecoilData?.longitude || !locationRecoilData?.latitude) {
+  useEffect(() => {
+    if (!locationRecoilData || !locationRecoilData.latitude || !locationRecoilData.longitude) {
       setError("位置情報が無効です。");
-      router.push("/home");
+      return;
     }
 
     setLoading(true);
     setError("");
 
+    getWeatherData();
+  }, [locationRecoilData]);
+
+  async function getWeatherData() {
+    // 日付処理がまだなので、仮で現在時刻を出船時刻として設定
     const tripData = {
       trip: {
         departure_time: new Date().getTime(),
@@ -40,10 +45,10 @@ export default function LocationCard() {
     };
 
     try {
-      const weeklyWeatherResponse = await FetchWeeklyWeatherData(tripData);
-      setWeeklyWeatherData(weeklyWeatherResponse);
       const weatherResponse = await FetchDailyWeatherData(tripData);
       setWeatherData(weatherResponse);
+      const weeklyWeatherResponse = await FetchWeeklyWeatherData(tripData);
+      setWeeklyWeatherData(weeklyWeatherResponse);
     } catch (error) {
       console.error("Error fetching weather data", error);
       setError("天気データの取得中にエラーが発生しました。");
@@ -52,28 +57,23 @@ export default function LocationCard() {
     }
   }
 
-  //trip/registerに遷移する関数
-  const onClick = () => {
+  const registerNavigate = () => {
     router.push("/trip/register");
   };
-
-  useEffect(() => {
-    getWeatherData();
-  }, [locationRecoilData]);
 
   return (
     <>
       {error && <ErrorFlashMessage message={error} />}
       {loading ? (
         <FetchLoading />
-      ) : weatherData ? (
+      ) : (
         <>
           <WeeklyWeatherForecast weatherData={weeklyWeatherData} />
-          <hr className="my-4 solid:1px transparent" />
+          <hr className="my-4" />
           <DailyWeatherDetail weatherData={weatherData} detailToggle={true} />
-          <BasicButton label="出船予定作成" className="btn-success mb-2" onClick={onClick} />
+          <BasicButton label="出船予定作成" className="btn-success mb-2" onClick={() => registerNavigate()} />
         </>
-      ) : null}
+      )}
     </>
   );
 }

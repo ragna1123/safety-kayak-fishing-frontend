@@ -64,6 +64,8 @@ export default function TripScheduleCard() {
               <h1 className="text-xl font-bold text-center mt-4">{data.trip.details}</h1>
               <div className="flex justify-center cursor-pointer hover:bg-slate-600 rounded-md" onClick={() => handleClick(data.trip.id)}>
                 <h2 className="text-xl">{data.trip.departure_time}</h2>
+                <h2 className="text-xl">〜</h2>
+                <h2 className="text-xl">{data.trip.estimated_return_time}</h2>
               </div>
               <DailyWeatherDetail weatherData={data.weatherData} />
             </div>

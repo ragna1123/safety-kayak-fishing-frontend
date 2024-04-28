@@ -7,8 +7,11 @@ import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
 import axios from "axios";
 import WarningFlashMessage from "@/components/ui-parts/flashMessage/WarningFlashMessage";
 import { useRouter } from "next/navigation";
+import useUnreturnedTripChecker from "@/common/hooks/useUnreturnedTripChecker";
+import ErrorFlashMessage from "@/components/ui-parts/flashMessage/ErrorFlashMessage";
 
 export default function HomeLayout() {
+  const { unreturnedTrips, isLoading: unreturnedLoading, error: unreturnedError } = useUnreturnedTripChecker();
   const [emergencyContacts, setEmergencyContacts] = useState([]);
   const [error, setError] = useState("");
   const router = useRouter();
@@ -35,6 +38,10 @@ export default function HomeLayout() {
     router.push("/emergency/register");
   };
 
+  const navigateToReturn = () => {
+    router.push(`/trip/unreturned`);
+  };
+
   useEffect(() => {
     fetchEmergencyContact();
   }, []);
@@ -44,6 +51,12 @@ export default function HomeLayout() {
       {emergencyContacts.length === 0 && error && (
         <div className="w-full cursor-pointer" onClick={navigateToEmergencyRegister}>
           <WarningFlashMessage message={error} />
+        </div>
+      )}
+      {unreturnedError && <ErrorFlashMessage message={unreturnedError} />}
+      {unreturnedTrips.length > 0 && (
+        <div onClick={() => navigateToReturn()}>
+          <WarningFlashMessage message={`${unreturnedTrips.length}件の帰還報告のされていない予定があります。クリックして確認してください。`} />
         </div>
       )}
       <OngoingTripCard detailToggle={false} />

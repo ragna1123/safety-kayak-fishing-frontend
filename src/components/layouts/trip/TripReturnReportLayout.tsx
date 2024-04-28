@@ -7,7 +7,7 @@ import CardWrapper from "../_layoutWrapper/card/CardWrapper";
 import CardBodyWrapper from "../_layoutWrapper/card/CardBodyWrapper";
 import TripReportCard from "@/components/ui-parts/card/TripReportCard";
 
-export default function TripReturnLayout() {
+export default function TripReturnReportLayout() {
   const { id } = useParams();
   const [tripData, setTripData] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -35,7 +35,7 @@ export default function TripReturnLayout() {
   }, [id]); // Dependency on `id` to refetch if it changes
 
   return (
-    <DisplaySplitWrapper>
+    <DisplaySplitWrapper leftPosition={true}>
       <CardWrapper>
         <CardBodyWrapper>{isLoaded ? <p>Loading...</p> : tripData ? <TripReportCard tripData={tripData} /> : <p>No trip data found.</p>}</CardBodyWrapper>
       </CardWrapper>

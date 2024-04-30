@@ -19,7 +19,6 @@ export default function TripRegisterLayout() {
   const [lineNotification, setLineNotification] = useState(true);
   const [flashMessage, setFlashMessage] = useState(false);
   const locationRecoilData = useRecoilValue(locationState);
-  console.log(departureTime, estimatedReturnTime, emailNotification, lineNotification, locationRecoilData);
 
   // 今日の日付をUTCで取得
   const todayUTC = new Date(Date.now());
@@ -31,9 +30,6 @@ export default function TripRegisterLayout() {
   // ISO8601形式のUTC日時を取得
   const departureTimeUTC = departureISO.toISOString();
   const returnTimeUTC = returnISO.toISOString();
-
-  console.log("Departure UTC:", departureTimeUTC);
-  console.log("Return UTC:", returnTimeUTC);
 
   const registerTrip = async (event) => {
     event.preventDefault(); // Prevent form submission

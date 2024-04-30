@@ -10,8 +10,11 @@ import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyW
 import WarningFlashMessage from "@/components/ui-parts/flashMessage/WarningFlashMessage";
 import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
+import { useRecoilState } from "recoil";
+import { locationState } from "@/common/states/locationState";
 
 export default function TripDetailLayout() {
+  const [recoilLocation, setRecoilLocation] = useRecoilState(locationState);
   const [weatherData, setWeatherData] = useState<any[]>([]);
   const [tripData, setTripData] = useState(null);
   const [flashMessage, setFlashMessage] = useState(false);
@@ -35,6 +38,9 @@ export default function TripDetailLayout() {
         lat: Number(resTripData.location_data.latitude),
         lng: Number(resTripData.location_data.longitude),
       };
+
+      // map に表示する位置情報をセット
+      // setRecoilLocation({ latitude: locationData.lat, longitude: locationData.lng, locationName: resTripData.location_name });
 
       // 取得したデータを状態にセット
       setTripData(resTripData);

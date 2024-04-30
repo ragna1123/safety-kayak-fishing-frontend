@@ -60,9 +60,9 @@ export default function TripScheduleCard() {
           <FetchLoading />
         ) : (
           tripData.map((data, index) => (
-            <div key={index}>
+            <div key={index} className="cursor-pointer border-4 border-transparent rounded-md transition-colors hover:border-zinc-700" onClick={() => handleClick(data.trip.id)}>
               <h1 className="text-xl font-bold text-center mt-4">{data.trip.details}</h1>
-              <div className="flex justify-center cursor-pointer hover:bg-slate-600 rounded-md" onClick={() => handleClick(data.trip.id)}>
+              <div className="flex justify-center">
                 <h2 className="text-xl">{data.trip.departure_time}</h2>
                 <h2 className="text-xl">〜</h2>
                 <h2 className="text-xl">{data.trip.estimated_return_time}</h2>

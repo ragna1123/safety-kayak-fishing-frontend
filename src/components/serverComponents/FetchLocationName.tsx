@@ -1,3 +1,5 @@
+"use server";
+
 import axios from "axios";
 
 export default async function FetchLocationName(location: { latitude: number; longitude: number }): Promise<string> {

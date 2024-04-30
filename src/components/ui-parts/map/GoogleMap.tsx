@@ -15,8 +15,8 @@ const GoogleMap = ({ locations }) => {
   // マップ初期化とマーカーの設定
   useEffect(() => {
     if (!googleMap && window.google) {
-      const lat = recoilLocation?.latitude || 35.681236;
-      const lng = recoilLocation?.longitude || 139.767125;
+      const lat = recoilLocation?.latitude;
+      const lng = recoilLocation?.longitude;
       const initialLocation = { lat, lng };
       const map = new google.maps.Map(googleMapRef.current, {
         center: initialLocation,

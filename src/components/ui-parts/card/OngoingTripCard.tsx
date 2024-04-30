@@ -7,12 +7,14 @@ import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyW
 import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 import FetchLocationName from "@/components/serverComponents/FetchLocationName";
+import { useRouter } from "next/navigation";
 
 export default function OngoingTripCard({ detailToggle }: { detailToggle: boolean }) {
   const [weatherData, setWeatherData] = useState(null);
   const [tripData, setTripData] = useState(null);
   const [locationName, setLocationName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   async function getWeatherData() {
     setIsLoading(true);
@@ -39,6 +41,14 @@ export default function OngoingTripCard({ detailToggle }: { detailToggle: boolea
     }
   }
 
+  const navigateToReturn = () => {
+    router.push(`/trip/${tripData?.trip.id}/return`);
+  };
+
+  const navigateToActiveTrip = () => {
+    router.push(`/trip/active`);
+  };
+
   useEffect(() => {
     getWeatherData();
   }, []);
@@ -47,7 +57,7 @@ export default function OngoingTripCard({ detailToggle }: { detailToggle: boolea
     <CardWrapper>
       <CardBodyWrapper>
         <div className="flex justify-center">
-          <h1 className="text-2xl font-bold text-center mt-4">出船中</h1>
+          <h1 className="text-3xl font-bold text-center mt-4">出船中</h1>
         </div>
         {isLoading ? (
           <FetchLoading />
@@ -55,11 +65,16 @@ export default function OngoingTripCard({ detailToggle }: { detailToggle: boolea
           <>
             {tripData && weatherData ? (
               <>
-                <div className="flex justify-center">
-                  <h2 className="text-xl">{locationName}</h2>
+                <div className={`flex flex-col rounded-md transition-colors ${detailToggle ? "" : "cursor-pointer border-4 border-transparent hover:border-zinc-700"}`} onClick={detailToggle ? undefined : navigateToActiveTrip}>
+                  <h2 className="text-2xl font-bold text-center mt-4">{locationName}</h2>
+                  <div className="flex justify-center space-x-4 mt-2">
+                    <h3 className="text-xl">{tripData.trip.departure_time}</h3>
+                    <span className="text-xl">to</span>
+                    <h3 className="text-xl">{tripData.trip.estimated_return_time}</h3>
+                  </div>
+                  <DailyWeatherDetail weatherData={weatherData} detailToggle={detailToggle} />
                 </div>
-                <DailyWeatherDetail weatherData={weatherData} detailToggle={detailToggle} />
-                <BasicButton label="帰還報告へ" className="btn-success" />
+                <BasicButton label="帰還報告へ" className="btn-success" onClick={navigateToReturn} />
               </>
             ) : (
               <p className="text-center text-xl">出船予定はありません。</p>

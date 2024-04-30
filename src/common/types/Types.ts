@@ -4,6 +4,7 @@ export type TextareaFormType = {
   id: string;
   label?: string;
   className?: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
 export type InputFormType = {

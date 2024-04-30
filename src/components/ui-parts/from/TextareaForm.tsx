@@ -7,7 +7,7 @@ export default function TextareaFrom(props: TextareaFormType) {
       <label className="label">
         <span className="label-text">{props.label}</span>
       </label>
-      <Textarea placeholder={props.placeholder} id={props.id} row={props.row} className={props.className} />
+      <Textarea placeholder={props.placeholder} id={props.id} row={props.row} className={props.className} onChange={props.onChange} />
     </div>
   );
 }

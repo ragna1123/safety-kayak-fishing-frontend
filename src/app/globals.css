@@ -12,3 +12,9 @@
     display: none;
   }
 }
+/* CSS */
+td[data-column="1"]:hover,
+td[data-column="2"]:hover,
+td[data-column="3"]:hover {
+  background-color: #f3f4f6; /* ホバー時の背景色 */
+}

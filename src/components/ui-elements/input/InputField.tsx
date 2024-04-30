@@ -6,6 +6,7 @@ type InputFieldProps = {
   id: string;
   defaultValue?: string;
   type?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function InputField(props: InputFieldProps) {
@@ -14,7 +15,7 @@ export default function InputField(props: InputFieldProps) {
       <label htmlFor={props.id} className="font-semibold text-xl">
         {props.label}:
       </label>
-      <input type={props.type} id={props.id} value={props.defaultValue} className="input input-bordered" />
+      <input type={props.type} id={props.id} value={props.defaultValue} className="input input-bordered" onChange={props.onChange} />
     </div>
   );
 }

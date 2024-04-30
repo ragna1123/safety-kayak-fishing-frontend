@@ -8,6 +8,7 @@ export default function Textarea(props: TextareaFormType) {
       className={`textarea input-bordered ${props.className}`}
       id={props.id}
       rows={props.row} // 適切な行数に設定
+      onChange={props.onChange}
     ></textarea>
   );
 }

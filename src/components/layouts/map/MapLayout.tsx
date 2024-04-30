@@ -21,7 +21,7 @@ export default function MapLayout() {
   return (
     <DisplaySplitWrapper leftPosition={true}>
       {/* Googleマップを表示 */}
-      {registerLocation ? <TripRegisterLayout locations={registerLocation} /> : <GoogleMap locations={locations} />}
+      <GoogleMap locations={locations} />
     </DisplaySplitWrapper>
   );
 }

@@ -3,72 +3,73 @@ import React, { useEffect, useState } from "react";
 import DailyWeatherDetail from "@/components/ui-elements/weatherForecast/DailyWeatherDetail";
 import CardBodyWrapper from "@/components/layouts/_layoutWrapper/card/CardBodyWrapper";
 import CardWrapper from "@/components/layouts/_layoutWrapper/card/CardWrapper";
-import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";
 import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import { useRouter } from "next/navigation";
-import BasicButton from "@/components/ui-elements/button/BasicButton";
+import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";
+import axios from "axios";
 
 export default function TripScheduleCard() {
-  const [weatherArrayData, setWeatherArrayData] = useState<any[]>([]);
-  const [tripsArrayData, setTripsArrayData] = useState(null);
+  const [tripData, setTripData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   async function getWeatherArrayData() {
+    setIsLoading(true);
     try {
-      const activeTripResponse = await fetch(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/trips`, {
-        credentials: "include",
-      });
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/trips`, { withCredentials: true });
+      const tripsData = res.data.data;
 
-      const tripsData = await activeTripResponse.json();
-      console.log("tripsData", tripsData);
-
-      if (tripsData && Object.keys(tripsData).length > 0) {
-        setTripsArrayData(tripsData.data);
+      if (tripsData && tripsData.length > 0) {
+        const fetchedData = await Promise.all(
+          tripsData.map(async (tripData) => {
+            const weatherData = await FetchDailyWeatherData(tripData);
+            return {
+              ...tripData,
+              weatherData,
+            };
+          })
+        );
+        setTripData(fetchedData);
+        console.log("Fetched trip data:", fetchedData);
+      } else {
+        setTripData([]);
       }
-
-      const weatherDataPromises = tripsData.data.map(async (trip: any) => {
-        if (trip.trip && trip.trip.departure_time) {
-          return await FetchDailyWeatherData(trip);
-        }
-        return null;
-      });
-
-      const results = await Promise.all(weatherDataPromises);
-
-      setWeatherArrayData(results.filter((data) => data !== null)); // nullでない結果だけを設定
-      // console.log("results", weatherArrayData);
     } catch (error) {
-      console.error("Error", error);
-      // 適切なエラーハンドリングをここに追加
+      console.error("Error fetching trip data:", error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
-  // ページ遷移
-  const router = useRouter();
-  const handleClick = (id: number) => () => {
-    router.push(`/trip/${id}`);
-  };
   useEffect(() => {
     getWeatherArrayData();
   }, []);
+
+  const handleClick = (id) => {
+    router.push(`/trip/${id}`);
+  };
 
   return (
     <CardWrapper>
       <CardBodyWrapper>
         <div className="flex justify-center">
-          <h1 className="text-2xl font-bold text-center mt-4">出船予定</h1>
+          <h1 className="text-2xl font-bold">出船予定</h1>
         </div>
-        {tripsArrayData && weatherArrayData && tripsArrayData.length > 0 && weatherArrayData.length > 0 ? (
-          weatherArrayData.map((weatherData, index) => (
-            <div key={index} onClick={handleClick(tripsArrayData[index].trip.id)} className="cursor-pointer">
+        {tripData.length === 0 && !isLoading && <p className="text-center text-xl">出船予定はありません。</p>}
+        {isLoading ? (
+          <FetchLoading />
+        ) : (
+          tripData.map((data, index) => (
+            <div key={index} className="cursor-pointer border-4 border-transparent rounded-md transition-colors hover:border-zinc-700" onClick={() => handleClick(data.trip.id)}>
+              <h1 className="text-xl font-bold text-center mt-4">{data.trip.details}</h1>
               <div className="flex justify-center">
-                <h2 className="text-xl">{}</h2>
-                <h2 className="text-xl">{tripsArrayData[index].trip.departure_time}</h2>
+                <h2 className="text-xl">{data.trip.departure_time}</h2>
+                <h2 className="text-xl">〜</h2>
+                <h2 className="text-xl">{data.trip.estimated_return_time}</h2>
               </div>
-              <DailyWeatherDetail weatherData={weatherData} />
+              <DailyWeatherDetail weatherData={data.weatherData} />
             </div>
           ))
-        ) : (
-          <FetchLoading />
         )}
       </CardBodyWrapper>
     </CardWrapper>

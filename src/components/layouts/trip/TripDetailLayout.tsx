@@ -10,8 +10,11 @@ import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyW
 import WarningFlashMessage from "@/components/ui-parts/flashMessage/WarningFlashMessage";
 import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
+import { useRecoilState } from "recoil";
+import { locationState } from "@/common/states/locationState";
 
 export default function TripDetailLayout() {
+  const [recoilLocation, setRecoilLocation] = useRecoilState(locationState);
   const [weatherData, setWeatherData] = useState<any[]>([]);
   const [tripData, setTripData] = useState(null);
   const [flashMessage, setFlashMessage] = useState(false);
@@ -36,9 +39,8 @@ export default function TripDetailLayout() {
         lng: Number(resTripData.location_data.longitude),
       };
 
-      // マップに表示するためにセッションストレージに位置情報を保存
-      // うまくいかず
-      sessionStorage.setItem("location", JSON.stringify(locationData));
+      // map に表示する位置情報をセット
+      // setRecoilLocation({ latitude: locationData.lat, longitude: locationData.lng, locationName: resTripData.location_name });
 
       // 取得したデータを状態にセット
       setTripData(resTripData);
@@ -94,17 +96,24 @@ export default function TripDetailLayout() {
         <CardBodyWrapper>
           {flashMessage && <WarningFlashMessage message="情報の取得に失敗しました" />}
           <div className="flex justify-center">
-            <h1 className="text-2xl font-bold text-center mt-4">出船予定</h1>
+            <h1 className="text-3xl font-bold text-center mt-4">出船予定</h1>
           </div>
           {tripData && Object.keys(tripData).length > 0 ? (
             weatherData.length > 0 ? (
               <>
                 <div className="flex justify-center">
-                  <h2 className="text-xl">地点名</h2>
+                  <h2 className="text-xl">{tripData.trip.details}</h2>
                 </div>
                 <div className="flex justify-center">
                   <h4 className="text-md px-1">{tripData.trip.departure_time}</h4>
                   <h4 className="text-md px-1">{tripData.trip.estimated_return_time}</h4>
+                </div>
+                <div>
+                  <h2 className="text-xl">日の出</h2>
+                  <p>{tripData.trip.sunrise_time}</p>
+
+                  <h2 className="text-xl">日の入</h2>
+                  <p>{tripData.trip.sunset_time}</p>
                 </div>
                 <DailyWeatherDetail weatherData={weatherData} detailToggle={true} />
                 {/* <BasicButton label="削除" className="btn-info" buttonClassName="text-slate-700" onClick={}/> */}

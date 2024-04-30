@@ -1,17 +1,17 @@
 "use client";
 import Header from "@/components/layouts/header/Header";
 import DisplayFlexWrapper from "@/components/layouts/_layoutWrapper/display/DisplayFlexWrapper";
-import TripReturnReportLayout from "@/components/layouts/trip/TripReturnReportLayout";
+import MapLayout from "@/components/layouts/map/MapLayout";
 import React from "react";
-import GoingTripLayout from "@/components/layouts/trip/GoingTripLayout";
+import TripUnreturnedLayout from "@/components/layouts/trip/TripUnreturnedLayout";
 
-export default function TripReturn() {
+export default function TripUnreturned() {
   return (
     <>
       <Header />
       <DisplayFlexWrapper>
-        <TripReturnReportLayout />
-        <GoingTripLayout />
+        <MapLayout />
+        <TripUnreturnedLayout />
       </DisplayFlexWrapper>
     </>
   );

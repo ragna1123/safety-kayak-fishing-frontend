@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 
 export default function LocationCard() {
   const router = useRouter();
+  const [weatherDate, setWeatherDate] = useState(new Date()); // 仮で現在時刻を設定
   const [weatherData, setWeatherData] = useState(null);
   const [weeklyWeatherData, setWeeklyWeatherData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -34,9 +35,11 @@ export default function LocationCard() {
 
   async function getWeatherData() {
     // 日付処理がまだなので、仮で現在時刻を出船時刻として設定
+    const tripDate = locationRecoilData?.datetime ? new Date(locationRecoilData.datetime) : new Date();
+    setWeatherDate(tripDate);
     const tripData = {
       trip: {
-        departure_time: new Date().getTime(),
+        departure_time: tripDate,
       },
       location_data: {
         latitude: locationRecoilData?.latitude,
@@ -70,6 +73,9 @@ export default function LocationCard() {
         <>
           <WeeklyWeatherForecast weatherData={weeklyWeatherData} />
           <hr className="my-4" />
+          <div className="flex justify-center">
+            <h1 className="text-2xl font-bold">{weatherDate.toLocaleDateString()}</h1>
+          </div>
           <DailyWeatherDetail weatherData={weatherData} detailToggle={true} />
           <BasicButton label="出船予定作成" className="btn-success mb-2" onClick={() => registerNavigate()} />
         </>

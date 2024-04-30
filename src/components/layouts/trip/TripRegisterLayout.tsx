@@ -10,9 +10,16 @@ import BasicButton from "@/components/ui-elements/button/BasicButton";
 import WarningFlashMessage from "@/components/ui-parts/flashMessage/WarningFlashMessage";
 import { useRecoilValue } from "recoil";
 import { locationState } from "@/common/states/locationState";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export default function TripRegisterLayout() {
   const router = useRouter();
+  const [dateTime, setDateTime] = useState(new Date()); // 仮で現在時刻を設定
   const [departureTime, setDepartureTime] = useState("06:00");
   const [estimatedReturnTime, setEstimatedReturnTime] = useState("18:00");
   const [emailNotification, setEmailNotification] = useState(true);
@@ -24,6 +31,7 @@ export default function TripRegisterLayout() {
   const todayUTC = new Date(Date.now());
 
   // ユーザーからの入力時間をISO8601形式に変換
+
   const departureISO = new Date(`${todayUTC.toISOString().split("T")[0]}T${departureTime}:00Z`);
   const returnISO = new Date(`${todayUTC.toISOString().split("T")[0]}T${estimatedReturnTime}:00Z`);
 
@@ -71,6 +79,9 @@ export default function TripRegisterLayout() {
       <CardWrapper className="flex items-center justify-center">
         {flashMessage && <WarningFlashMessage message="出船予定の登録に失敗しました" />}
         <h1 className="text-2xl font-bold m-8">出船登録</h1>
+        <div className="flex justify-center">
+          <p className="text-sm text-stone-200">出船予定日: {}</p>
+        </div>
         <form onSubmit={registerTrip} className="w-full max-w-sm">
           <InputField label="出船時間" id="departureTime" type="time" defaultValue={departureTime} onChange={(e) => setDepartureTime(e.target.value)} />
           {/* <p>日の出 6:00</p> */}

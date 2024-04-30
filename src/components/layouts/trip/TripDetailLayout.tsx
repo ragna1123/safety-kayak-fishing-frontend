@@ -10,11 +10,14 @@ import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyW
 import WarningFlashMessage from "@/components/ui-parts/flashMessage/WarningFlashMessage";
 import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
-import { useRecoilState } from "recoil";
-import { locationState } from "@/common/states/locationState";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export default function TripDetailLayout() {
-  const [recoilLocation, setRecoilLocation] = useRecoilState(locationState);
   const [weatherData, setWeatherData] = useState<any[]>([]);
   const [tripData, setTripData] = useState(null);
   const [flashMessage, setFlashMessage] = useState(false);
@@ -105,15 +108,15 @@ export default function TripDetailLayout() {
                   <h2 className="text-xl">{tripData.trip.details}</h2>
                 </div>
                 <div className="flex justify-center">
-                  <h4 className="text-md px-1">{tripData.trip.departure_time}</h4>
-                  <h4 className="text-md px-1">{tripData.trip.estimated_return_time}</h4>
+                  <h4 className="text-md px-1">{dayjs(tripData.trip.departure_time).tz("Asia/tokyo").format("YYYY M/D H:mm")}</h4>
+                  <h4 className="text-md px-1">{dayjs(tripData.trip.estimated_return_time).tz("Asia/tokyo").format("H:mm")}</h4>
                 </div>
                 <div>
                   <h2 className="text-xl">日の出</h2>
-                  <p>{tripData.trip.sunrise_time}</p>
+                  <p>{dayjs(tripData.trip.sunrise_time).tz("Asia/tokyo").format("H:mm")}</p>
 
                   <h2 className="text-xl">日の入</h2>
-                  <p>{tripData.trip.sunset_time}</p>
+                  <p>{dayjs(tripData.trip.sunrise_set).tz("Asia/tokyo").format("H:mm")}</p>
                 </div>
                 <DailyWeatherDetail weatherData={weatherData} detailToggle={true} />
                 {/* <BasicButton label="削除" className="btn-info" buttonClassName="text-slate-700" onClick={}/> */}

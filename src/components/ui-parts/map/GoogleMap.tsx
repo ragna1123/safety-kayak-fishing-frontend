@@ -4,7 +4,6 @@ import { useGoogleMap } from "@/common/hooks/useGoogleMap";
 import { useRouter } from "next/navigation";
 import { useRecoilState } from "recoil";
 import { locationState } from "@/common/states/locationState";
-import FetchLocationName from "@/components/serverComponents/FetchLocationName";
 
 const GoogleMap = ({ locations }) => {
   const googleMapRef = useRef(null);
@@ -43,9 +42,7 @@ const GoogleMap = ({ locations }) => {
       });
       setMarker(newMarker);
 
-      const locationName = await FetchLocationName({ location_data: { latitude: e.latLng.lat(), longitude: e.latLng.lng() } });
-
-      setRecoilLocation({ latitude: e.latLng.lat(), longitude: e.latLng.lng(), locationName });
+      setRecoilLocation({ latitude: e.latLng.lat(), longitude: e.latLng.lng() });
 
       router.push("/location");
     };

@@ -7,6 +7,12 @@ import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import { useRouter } from "next/navigation";
 import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";
 import axios from "axios";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export default function TripScheduleCard() {
   const [tripData, setTripData] = useState([]);
@@ -41,19 +47,30 @@ export default function TripScheduleCard() {
     }
   }
 
-  useEffect(() => {
-    getWeatherArrayData();
-  }, []);
+  const navigateToSchedule = () => {
+    router.push("/trip");
+  };
 
   const handleClick = (id) => {
     router.push(`/trip/${id}`);
   };
 
+  useEffect(() => {
+    getWeatherArrayData();
+  }, []);
+
   return (
     <CardWrapper>
       <CardBodyWrapper>
         <div className="flex justify-center">
-          <h1 className="text-2xl font-bold">出船予定</h1>
+          <h1
+            className="text-3xl font-bold text-center mt-4 cursor-pointer hover:text-zinc-500 transition duration-100 ease-in-out"
+            onClick={() => {
+              navigateToSchedule();
+            }}
+          >
+            出船予定
+          </h1>
         </div>
         {tripData.length === 0 && !isLoading && <p className="text-center text-xl">出船予定はありません。</p>}
         {isLoading ? (
@@ -63,9 +80,9 @@ export default function TripScheduleCard() {
             <div key={index} className="cursor-pointer border-4 border-transparent rounded-md transition-colors hover:border-zinc-700" onClick={() => handleClick(data.trip.id)}>
               <h1 className="text-xl font-bold text-center mt-4">{data.trip.details}</h1>
               <div className="flex justify-center">
-                <h2 className="text-xl">{data.trip.departure_time}</h2>
+                <h2 className="text-xl">{dayjs(data.trip.departure_time).tz("Asia/tokyo").format("YYYY M/D H:mm")}</h2>
                 <h2 className="text-xl">〜</h2>
-                <h2 className="text-xl">{data.trip.estimated_return_time}</h2>
+                <h2 className="text-xl">{dayjs(data.trip.estimated_return_time).tz("Asia/tokyo").format("H:mm")}</h2>
               </div>
               <DailyWeatherDetail weatherData={data.weatherData} />
             </div>

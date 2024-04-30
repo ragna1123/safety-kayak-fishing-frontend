@@ -19,7 +19,7 @@ export default function DailyWeatherDetail({ weatherData, tripData, detailToggle
               <th className="py-2 px-12">時間</th>
               {Array.from({ length: 25 }, (_, i) => (
                 <th key={i} className="py-2">
-                  {`${i}時`}
+                  {`${i}:00`}
                 </th>
               ))}
             </tr>

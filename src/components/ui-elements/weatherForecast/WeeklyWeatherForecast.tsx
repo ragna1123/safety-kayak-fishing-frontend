@@ -1,7 +1,15 @@
 "use client";
+
+import { locationState } from "@/common/states/locationState";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { useRecoilState } from "recoil";
+import dayjs from "dayjs";
 
 export default function WeeklyWeatherForecast({ weatherData }: any) {
+  const Router = useRouter();
+  const [recoilLocation, setRecoilLocation] = useRecoilState(locationState);
+
   const convertToCardinal = (degree: number) => {
     if (degree > 337.5) return "北";
     if (degree > 292.5) return "北西";
@@ -13,6 +21,13 @@ export default function WeeklyWeatherForecast({ weatherData }: any) {
     if (degree > 22.5) return "北東";
     return "北";
   };
+
+  // 位置情報詳細画面に遷移
+  // 日時をクリックした際に、その日の天気詳細を表示する
+  const navigateToDetail = (location_data: {}) => {
+    setRecoilLocation({ latitude: location_data.latitude, longitude: location_data.longitude, datetime: location_data.datetime });
+    Router.push("/location");
+  };
   return (
     <>
       <div className="overflow-x-auto hidden-scrollbar">
@@ -21,8 +36,14 @@ export default function WeeklyWeatherForecast({ weatherData }: any) {
             <tr>
               <th className="py-1 px-10">月/日</th>
               {weatherData.days?.map((data: any, index: number) => (
-                <td key={index} className=" transition hover:bg-slate-600 rounded-lg cursor-pointer">
-                  {data.datetime}
+                <td
+                  key={index}
+                  className=" transition hover:bg-slate-600 rounded-lg cursor-pointer"
+                  onClick={() => {
+                    navigateToDetail({ latitude: weatherData.latitude, longitude: weatherData.longitude, datetime: data.datetime });
+                  }}
+                >
+                  {dayjs(data.datetime).format("MM/DD")}
                 </td>
               ))}
             </tr>

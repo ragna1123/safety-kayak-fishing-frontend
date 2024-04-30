@@ -1,10 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import TextareaForm from "../from/TextareaForm";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 import WarningFlashMessage from "../flashMessage/WarningFlashMessage";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
+
+dayjs.extend(timezone);
+dayjs.extend(utc);
 
 interface TripData {
   trip: {
@@ -28,7 +34,6 @@ export default function TripReportCard({ tripData }: Props) {
   const [isError, setIsError] = useState(false);
   const router = useRouter();
   const trip = tripData.trip;
-  console.log(trip.id);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,7 +45,7 @@ export default function TripReportCard({ tripData }: Props) {
         },
         { withCredentials: true }
       );
-      if (res.status == 200) {
+      if (res.status === 200) {
         router.push("/home");
       } else {
         setIsError(true);
@@ -57,9 +62,18 @@ export default function TripReportCard({ tripData }: Props) {
       <div className="text-center p-4">
         {isError && <WarningFlashMessage message="帰投報告に失敗しました。" />}
         <h1 className="text-3xl font-bold mb-6">帰投報告</h1>
-        <h2 className="text-2xl font-bold">{trip.details}</h2>
-        <h4 className="text-md px-1">{trip.departure_time}</h4>
-        <h4 className="text-md px-1">{trip.estimated_return_time}</h4>
+        <div className="p-4 flex justify-center items-center flex-col">
+          <h2 className="text-xl font-semibold">{trip.details}</h2>
+          <div className="flex items-center justify-center space-x-1 mt-4 text-2xl">
+            <div className="flex items-center space-x-2 ">
+              <span>{dayjs(trip.departure_time).tz("Asia/tokyo").format("YYYY/M/D H:mm")}</span>
+            </div>
+            <span>~</span>
+            <div className="flex items-center space-x-2">
+              <span>{dayjs(trip.estimated_return_time).tz("Asia/tokyo").format("H:mm")}</span>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="card-body">
         <form onSubmit={handleSubmit} className="space-y-6">

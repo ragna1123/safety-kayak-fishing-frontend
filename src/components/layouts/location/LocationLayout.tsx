@@ -1,32 +1,49 @@
 "use client";
-import React from "react";
-import LocationCard from "@/components/ui-parts/card/LocationCard";
-import CardBodyWrapper from "../_layoutWrapper/card/CardBodyWrapper";
+import React, { use, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
 import { locationState } from "@/common/states/locationState";
+import LocationCard from "@/components/ui-parts/card/LocationCard";
+import CardBodyWrapper from "../_layoutWrapper/card/CardBodyWrapper";
 import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
 import CardWrapper from "../_layoutWrapper/card/CardWrapper";
-import { useRouter } from "next/navigation";
+import FetchLocationName from "@/components/serverComponents/FetchLocationName";
 
 interface LocationState {
-  locationName: string;
   latitude?: number; // 緯度
   longitude?: number; // 経度
 }
 
 export default function LocationLayout() {
   const locationRecoilData: LocationState = useRecoilValue<LocationState>(locationState);
+  const [LocationName, setLocationName] = useState<string>(""); // 追加
   const router = useRouter();
+  const fetchLocationName = async () => {
+    try {
+      // fetchLocationName関数用にリクエストデータを作成
+      const req_data = { location_data: { latitude: locationRecoilData.latitude, longitude: locationRecoilData.longitude } };
+      const res = await FetchLocationName(req_data);
+      setLocationName(res);
+    } catch (error) {
+      console.error("Failed to fetch location name:", error);
+      throw error;
+    }
+  };
 
-  if (!locationRecoilData) {
-    router.push("/home");
-  }
+  useEffect(() => {
+    // 位置情報が取得できている場合、位置情報から地名を取得
+    if (locationRecoilData || locationRecoilData?.latitude || locationRecoilData?.longitude) {
+      fetchLocationName();
+    } else {
+      router.push("/home");
+    }
+  }, [locationRecoilData, router]);
 
   return (
     <DisplaySplitWrapper>
       <CardWrapper>
         <div className="flex justify-center p-4 mt-4 items-center">
-          <h1 className="text-2xl font-bold">{locationRecoilData?.locationName}</h1>
+          <h1 className="text-2xl font-bold">{LocationName}</h1>
         </div>
         <CardBodyWrapper>
           <LocationCard />

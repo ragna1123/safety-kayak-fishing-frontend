@@ -10,9 +10,11 @@ import { FetchWeeklyWeatherData } from "@/components/serverComponents/FetchWeekl
 import { useRecoilValue } from "recoil";
 import { locationState } from "@/common/states/locationState";
 import { useRouter } from "next/navigation";
+import CardBodyWrapper from "@/components/layouts/_layoutWrapper/card/CardBodyWrapper";
 
 export default function LocationCard() {
   const router = useRouter();
+  const [weatherDate, setWeatherDate] = useState(new Date()); // デフォルトは現在時刻を設定
   const [weatherData, setWeatherData] = useState(null);
   const [weeklyWeatherData, setWeeklyWeatherData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -33,10 +35,12 @@ export default function LocationCard() {
   }, [locationRecoilData]);
 
   async function getWeatherData() {
-    // 日付処理がまだなので、仮で現在時刻を出船時刻として設定
+    // 出航日時を取得 (デフォルトは現在時刻を参照)
+    const tripDate = locationRecoilData?.datetime ? new Date(locationRecoilData.datetime) : new Date();
+    setWeatherDate(tripDate);
     const tripData = {
       trip: {
-        departure_time: new Date().getTime(),
+        departure_time: tripDate,
       },
       location_data: {
         latitude: locationRecoilData?.latitude,
@@ -68,10 +72,15 @@ export default function LocationCard() {
         <FetchLoading />
       ) : (
         <>
-          <WeeklyWeatherForecast weatherData={weeklyWeatherData} />
-          <hr className="my-4" />
-          <DailyWeatherDetail weatherData={weatherData} detailToggle={true} />
-          <BasicButton label="出船予定作成" className="btn-success mb-2" onClick={() => registerNavigate()} />
+          <CardBodyWrapper>
+            <WeeklyWeatherForecast weatherData={weeklyWeatherData} />
+            <hr className="my-4" />
+            <div className="flex justify-center">
+              <h1 className="text-2xl font-bold">{weatherDate.toLocaleDateString()}</h1>
+            </div>
+            <DailyWeatherDetail weatherData={weatherData} detailToggle={true} />
+            <BasicButton label="出船届を作成する" className="btn-success mb-2" onClick={() => registerNavigate()} />
+          </CardBodyWrapper>
         </>
       )}
     </>

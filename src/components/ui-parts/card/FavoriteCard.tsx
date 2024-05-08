@@ -6,10 +6,15 @@ import CardBodyWrapper from "@/components/layouts/_layoutWrapper/card/CardBodyWr
 import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import { FetchWeeklyWeatherData } from "@/components/serverComponents/FetchWeeklyWeatherData";
 import FetchLocationName from "@/components/serverComponents/FetchLocationName";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { locationState } from "@/common/states/locationState";
 
 export default function FavoriteCard() {
+  const router = useRouter();
   const [weeklyWeatherData, setWeeklyWeatherData] = useState([]);
   const [favoriteLocations, setFavoriteLocations] = useState([]);
+  const [recoilLocation, setRecoilLocation] = useState(locationState);
   const [isLoading, setIsLoading] = useState(true);
 
   async function getWeatherData(locations) {
@@ -31,13 +36,12 @@ export default function FavoriteCard() {
 
   async function getFavoriteLocations() {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/favorite_locations`, {
-        credentials: "include",
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/favorite_locations`, {
+        withCredentials: true,
       });
-      const data = await response.json();
-      if (response.ok) {
-        setFavoriteLocations(data.data);
-        await getWeatherData(data.data);
+      if (res.status === 200) {
+        setFavoriteLocations(res.data.data);
+        await getWeatherData(res.data.data);
       } else {
         throw new Error("Failed to fetch favorite locations");
       }
@@ -45,6 +49,14 @@ export default function FavoriteCard() {
       console.error("Error fetching favorite locations:", error);
     }
   }
+  const navigateToFavoriteList = () => {
+    router.push("/favorites");
+  };
+
+  const navigateToDetail = (location_data: {}) => {
+    setRecoilLocation({ latitude: location_data.latitude, longitude: location_data.longitude, datetime: location_data.datetime });
+    router.push("/location");
+  };
 
   useEffect(() => {
     getFavoriteLocations();
@@ -53,17 +65,30 @@ export default function FavoriteCard() {
   return (
     <CardWrapper>
       <div className="flex justify-center">
-        <h1 className="text-2xl font-bold text-center mt-4">お気に入り地点</h1>
+        <h1
+          className="text-3xl font-bold text-center mt-4 cursor-pointer hover:text-zinc-500 transition duration-100 ease-in-out"
+          onClick={() => {
+            navigateToFavoriteList();
+          }}
+        >
+          お気に入り地点
+        </h1>
       </div>
       <CardBodyWrapper>
         {isLoading ? (
           <FetchLoading />
         ) : favoriteLocations.length > 0 && weeklyWeatherData.length > 0 ? (
           weeklyWeatherData.map((data, index) => (
-            <React.Fragment key={index}>
-              <h2 className="text-xl text-center">{data.locationName}</h2>
+            <div
+              key={index}
+              className="cursor-pointer border-4 border-transparent rounded-md transition-colors hover:border-zinc-700"
+              onClick={() => {
+                navigateToDetail({ latitude: data.latitude, longitude: data.longitude, datetime: data.days[0].datetime });
+              }}
+            >
+              <h2 className="text-xl text-center my-1">{data.locationName}</h2>
               <WeeklyWeatherForecast weatherData={data} />
-            </React.Fragment>
+            </div>
           ))
         ) : (
           <p className="text-xl text-center">天気情報が見つかりませんでした。</p>

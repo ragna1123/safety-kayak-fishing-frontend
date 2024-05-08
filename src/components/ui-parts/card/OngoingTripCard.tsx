@@ -8,6 +8,7 @@ import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
 import FetchLocationName from "@/components/serverComponents/FetchLocationName";
 import { useRouter } from "next/navigation";
+import dayjs from "dayjs";
 
 export default function OngoingTripCard({ detailToggle }: { detailToggle: boolean }) {
   const [weatherData, setWeatherData] = useState(null);
@@ -68,9 +69,9 @@ export default function OngoingTripCard({ detailToggle }: { detailToggle: boolea
                 <div className={`flex flex-col rounded-md transition-colors ${detailToggle ? "" : "cursor-pointer border-4 border-transparent hover:border-zinc-700"}`} onClick={detailToggle ? undefined : navigateToActiveTrip}>
                   <h2 className="text-2xl font-bold text-center mt-4">{locationName}</h2>
                   <div className="flex justify-center space-x-4 mt-2">
-                    <h3 className="text-xl">{tripData.trip.departure_time}</h3>
-                    <span className="text-xl">to</span>
-                    <h3 className="text-xl">{tripData.trip.estimated_return_time}</h3>
+                    <h3 className="text-2xl">{dayjs(tripData.trip.departure_time).format("H:mm")}</h3>
+                    <span className="text-2xl">〜</span>
+                    <h3 className="text-2xl">{dayjs(tripData.trip.estimated_return_time).format("H:mm")}</h3>
                   </div>
                   <DailyWeatherDetail weatherData={weatherData} detailToggle={detailToggle} />
                 </div>

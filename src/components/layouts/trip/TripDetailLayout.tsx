@@ -10,11 +10,14 @@ import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyW
 import WarningFlashMessage from "@/components/ui-parts/flashMessage/WarningFlashMessage";
 import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
-import { useRecoilState } from "recoil";
-import { locationState } from "@/common/states/locationState";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export default function TripDetailLayout() {
-  const [recoilLocation, setRecoilLocation] = useRecoilState(locationState);
   const [weatherData, setWeatherData] = useState<any[]>([]);
   const [tripData, setTripData] = useState(null);
   const [flashMessage, setFlashMessage] = useState(false);
@@ -93,8 +96,8 @@ export default function TripDetailLayout() {
   return (
     <DisplaySplitWrapper>
       <CardWrapper>
+        {flashMessage && <WarningFlashMessage message="情報の取得に失敗しました" />}
         <CardBodyWrapper>
-          {flashMessage && <WarningFlashMessage message="情報の取得に失敗しました" />}
           <div className="flex justify-center">
             <h1 className="text-3xl font-bold text-center mt-4">出船予定</h1>
           </div>
@@ -102,18 +105,20 @@ export default function TripDetailLayout() {
             weatherData.length > 0 ? (
               <>
                 <div className="flex justify-center">
-                  <h2 className="text-xl">{tripData.trip.details}</h2>
+                  <h2 className="text-xl">{tripData?.trip.details}</h2>
                 </div>
                 <div className="flex justify-center">
-                  <h4 className="text-md px-1">{tripData.trip.departure_time}</h4>
-                  <h4 className="text-md px-1">{tripData.trip.estimated_return_time}</h4>
+                  <h3 className="text-2xl px-1">{dayjs(tripData?.trip.departure_time).tz("Asia/tokyo").format("YYYY M/D H:mm")}</h3>
+                  <span className="text-2xl">〜</span>
+                  <h3 className="text-2xl px-1">{dayjs(tripData?.trip.estimated_return_time).tz("Asia/tokyo").format("H:mm")}</h3>
                 </div>
-                <div>
-                  <h2 className="text-xl">日の出</h2>
-                  <p>{tripData.trip.sunrise_time}</p>
-
-                  <h2 className="text-xl">日の入</h2>
-                  <p>{tripData.trip.sunset_time}</p>
+                <div className="flex justify-center text-orange-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                  </svg>
+                  <h3 className="text-xl px-1">{dayjs(tripData?.trip.sunrise_time).tz("Asia/tokyo").format("H:mm")}</h3>
+                  <span className="text-xl">〜</span>
+                  <h3 className="text-xl px-1">{dayjs(tripData?.trip.sunset_time).tz("Asia/tokyo").format("H:mm")}</h3>
                 </div>
                 <DailyWeatherDetail weatherData={weatherData} detailToggle={true} />
                 {/* <BasicButton label="削除" className="btn-info" buttonClassName="text-slate-700" onClick={}/> */}

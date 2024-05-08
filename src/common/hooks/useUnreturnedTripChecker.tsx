@@ -10,19 +10,24 @@ export default function useUnreturnedTripChecker() {
   useEffect(() => {
     const fetchUnreturnedTrips = async () => {
       setIsLoading(true);
+      setError(null); // 新しいリクエストをする前にエラーをリセット
       try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/trips/unreturned`, { withCredentials: true });
-        const tripIds = res.data.data.map((trip) => trip.id);
-        setUnreturnedTrips(tripIds);
-        setIsLoading(false);
-      } catch (error) {
-        setError(error);
-        setIsLoading(false);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/trips/unreturned`, { withCredentials: true });
+        if (!response.data.data) {
+          setUnreturnedTrips([]);
+        } else {
+          const tripIds = response.data.data.map((trip) => trip.id);
+          setUnreturnedTrips(tripIds);
+        }
+      } catch (err) {
+        setError(`未帰投の予定の取得に失敗しました: ${err.message || err.toString()}`);
+      } finally {
+        setIsLoading(false); // ローディング完了
       }
     };
 
     fetchUnreturnedTrips();
-  }, []); // Empty dependency array means this runs once on mount
+  }, []);
 
   return { unreturnedTrips, isLoading, error };
 }

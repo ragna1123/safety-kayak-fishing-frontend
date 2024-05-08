@@ -13,6 +13,7 @@ import { locationState } from "@/common/states/locationState";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import FetchLocationName from "@/components/serverComponents/FetchLocationName";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -27,29 +28,30 @@ export default function TripRegisterLayout() {
   const [flashMessage, setFlashMessage] = useState(false);
   const locationRecoilData = useRecoilValue(locationState);
 
-  // 今日の日付をUTCで取得
-  const todayUTC = new Date(Date.now());
+  // locationページからの日時ステート引き継ぎ、recoil内にあるdatetimeを元に出船予定日を作成する
 
   // ユーザーからの入力時間をISO8601形式に変換
+  // JST時間をUTC時間に変換
 
-  const departureISO = new Date(`${todayUTC.toISOString().split("T")[0]}T${departureTime}:00Z`);
-  const returnISO = new Date(`${todayUTC.toISOString().split("T")[0]}T${estimatedReturnTime}:00Z`);
+  const todayUTC = dayjs(locationRecoilData?.datetime || new Date()).format("YYYY-MM-DD");
 
-  // ISO8601形式のUTC日時を取得
-  const departureTimeUTC = departureISO.toISOString();
-  const returnTimeUTC = returnISO.toISOString();
+  // JST時間をUTC時間に変換
+  const departureDateTime = dayjs(`${todayUTC}T${departureTime}:00`).tz("Asia/Tokyo").utc().format();
+  const returnDateTime = dayjs(`${todayUTC}T${estimatedReturnTime}:00`).tz("Asia/Tokyo").utc().format();
 
   const registerTrip = async (event) => {
     event.preventDefault(); // Prevent form submission
 
     try {
+      const resLocationName = await FetchLocationName({ location_data: { latitude: locationRecoilData?.latitude, longitude: locationRecoilData?.longitude } });
+
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_RAILS_API_URL}/trips`,
         {
           trip: {
-            departure_time: departureTimeUTC,
-            estimated_return_time: returnTimeUTC,
-            details: locationRecoilData?.locationName,
+            departure_time: departureDateTime,
+            estimated_return_time: returnDateTime,
+            details: resLocationName,
             location_data: {
               latitude: locationRecoilData?.latitude,
               longitude: locationRecoilData?.longitude,

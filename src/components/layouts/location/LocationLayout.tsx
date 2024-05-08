@@ -45,9 +45,7 @@ export default function LocationLayout() {
         <div className="flex justify-center p-4 mt-4 items-center">
           <h1 className="text-2xl font-bold">{LocationName}</h1>
         </div>
-        <CardBodyWrapper>
-          <LocationCard />
-        </CardBodyWrapper>
+        <LocationCard />
       </CardWrapper>
     </DisplaySplitWrapper>
   );

@@ -8,11 +8,13 @@ import { FetchWeeklyWeatherData } from "@/components/serverComponents/FetchWeekl
 import FetchLocationName from "@/components/serverComponents/FetchLocationName";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { locationState } from "@/common/states/locationState";
 
 export default function FavoriteCard() {
   const router = useRouter();
   const [weeklyWeatherData, setWeeklyWeatherData] = useState([]);
   const [favoriteLocations, setFavoriteLocations] = useState([]);
+  const [recoilLocation, setRecoilLocation] = useState(locationState);
   const [isLoading, setIsLoading] = useState(true);
 
   async function getWeatherData(locations) {
@@ -51,6 +53,11 @@ export default function FavoriteCard() {
     router.push("/favorites");
   };
 
+  const navigateToDetail = (location_data: {}) => {
+    setRecoilLocation({ latitude: location_data.latitude, longitude: location_data.longitude, datetime: location_data.datetime });
+    router.push("/location");
+  };
+
   useEffect(() => {
     getFavoriteLocations();
   }, []);
@@ -72,7 +79,13 @@ export default function FavoriteCard() {
           <FetchLoading />
         ) : favoriteLocations.length > 0 && weeklyWeatherData.length > 0 ? (
           weeklyWeatherData.map((data, index) => (
-            <div key={index} className="cursor-pointer border-4 border-transparent rounded-md transition-colors hover:border-zinc-700">
+            <div
+              key={index}
+              className="cursor-pointer border-4 border-transparent rounded-md transition-colors hover:border-zinc-700"
+              onClick={() => {
+                navigateToDetail({ latitude: data.latitude, longitude: data.longitude, datetime: data.days[0].datetime });
+              }}
+            >
               <h2 className="text-xl text-center my-1">{data.locationName}</h2>
               <WeeklyWeatherForecast weatherData={data} />
             </div>

@@ -77,7 +77,7 @@ export default function FavoriteCard() {
       <CardBodyWrapper>
         {isLoading ? (
           <FetchLoading />
-        ) : favoriteLocations.length > 0 && weeklyWeatherData.length > 0 ? (
+        ) : favoriteLocations?.length > 0 && weeklyWeatherData?.length > 0 ? (
           weeklyWeatherData.map((data, index) => (
             <div
               key={index}

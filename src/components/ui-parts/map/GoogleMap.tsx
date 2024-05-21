@@ -31,7 +31,7 @@ const GoogleMap = ({ locations }) => {
 
   useEffect(() => {
     let clickListener;
-    // console.log(googleMap);
+    console.log(googleMap);
     if (googleMap) {
       clickListener = new google.maps.event.addListener(googleMap, "click", (e) => {
         if (marker) {
@@ -53,7 +53,6 @@ const GoogleMap = ({ locations }) => {
         google.maps.event.removeListener(clickListener);
       };
     }
-    // }, [googleMap, setMarker, marker, setRecoilLocation, router])
   }, [googleMap, marker]);
 
   return <div ref={googleMapRef} style={{ width: "100%", height: "100%" }}></div>;

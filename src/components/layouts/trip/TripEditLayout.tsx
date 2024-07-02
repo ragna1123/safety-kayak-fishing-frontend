@@ -57,7 +57,6 @@ export default function TripRegisterLayout() {
           trip: {
             departure_time: departureDateTime,
             estimated_return_time: returnDateTime,
-            details: "Details provided",
           },
         },
         { withCredentials: true }

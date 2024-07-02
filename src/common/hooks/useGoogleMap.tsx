@@ -1,35 +1,34 @@
-// hooks/useGoogleMap.js
-"use client";
 import { useEffect, useState } from "react";
 
-export const useGoogleMap = (ref, locations) => {
-  const [googleMap, setGoogleMap] = useState(null);
-  const [marker, setMarker] = useState(null);
+type Location = {
+  lat: number;
+  lng: number;
+  // 他に必要なフィールドがあればここに追加
+};
+
+export const useGoogleMap = (ref: React.RefObject<HTMLDivElement>, locations: Location[]) => {
+  const [googleMap, setGoogleMap] = useState<google.maps.Map | null>(null);
+  const [marker, setMarker] = useState<google.maps.Marker | null>(null);
 
   useEffect(() => {
-    const initGoogleMap = () => {
+    if (ref.current && !googleMap) {
       const map = new google.maps.Map(ref.current, {
-        center: locations[0],
-        zoom: 12,
+        center: { lat: locations[0].lat, lng: locations[0].lng },
+        zoom: 8,
       });
       setGoogleMap(map);
-    };
-
-    if (window.google && window.google.maps) {
-      initGoogleMap();
-    } else {
-      const googleMapScript = document.createElement("script");
-      googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`;
-      googleMapScript.async = true;
-      googleMapScript.defer = true;
-      window.document.body.appendChild(googleMapScript);
-      googleMapScript.onload = initGoogleMap;
-
-      return () => {
-        window.document.body.removeChild(googleMapScript);
-      };
     }
-  }, [ref, locations]);
 
-  return { googleMap, marker, setMarker };
+    if (googleMap) {
+      locations.forEach((location) => {
+        const marker = new google.maps.Marker({
+          position: { lat: location.lat, lng: location.lng },
+          map: googleMap,
+        });
+        setMarker(marker);
+      });
+    }
+  }, [ref, googleMap, locations]);
+
+  return { googleMap, marker };
 };

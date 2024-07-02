@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
 import { locationState } from "@/common/states/locationState";
 import LocationCard from "@/components/ui-parts/card/LocationCard";
-import CardBodyWrapper from "../_layoutWrapper/card/CardBodyWrapper";
 import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
 import CardWrapper from "../_layoutWrapper/card/CardWrapper";
 import FetchLocationName from "@/components/serverComponents/FetchLocationName";

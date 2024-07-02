@@ -1,5 +1,5 @@
 import ToggleFavoriteIcon from "@/components/ui-parts/button/ToggleFavoriteIcon";
-import DailyWeatherForecastTable from "@/components/ui-parts/trip/location/weather/DailyWeatherForecastTable";
+// import DailyWeatherForecastTable from "@/components/ui-parts/table/DailyWeatherForecastTable";
 import React from "react";
 import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
 import CardWrapper from "../_layoutWrapper/card/CardWrapper";
@@ -19,9 +19,9 @@ export default function TripHistoryDetailLayout() {
           <p className="text-lg m-2">出船日時: 2024 4/16 6:00 - 13:00</p>
         </div>
 
-        <CardBodyWrapper>
+        {/* <CardBodyWrapper>
           <DailyWeatherForecastTable />
-        </CardBodyWrapper>
+        </CardBodyWrapper> */}
       </CardWrapper>
     </DisplaySplitWrapper>
   );

@@ -1,33 +1,32 @@
 "use client";
-import axios from "axios";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
-export default function useUnreturnedTripChecker() {
-  const [unreturnedTrips, setUnreturnedTrips] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+type Trip = {
+  id: number;
+  // 他に必要なフィールドがあればここに追加
+};
+
+export const useUnreturnedTripChecker = () => {
+  const [unreturnedTrips, setUnreturnedTrips] = useState<number[]>([]);
 
   useEffect(() => {
     const fetchUnreturnedTrips = async () => {
-      setIsLoading(true);
-      setError(null); // 新しいリクエストをする前にエラーをリセット
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/trips/unreturned`, { withCredentials: true });
-        if (!response.data.data) {
+        const response = await axios.get("/api/unreturned-trips");
+        if (response.data.data.length === 0) {
           setUnreturnedTrips([]);
         } else {
-          const tripIds = response.data.data.map((trip) => trip.id);
+          const tripIds = response.data.data.map((trip: Trip) => trip.id);
           setUnreturnedTrips(tripIds);
         }
       } catch (err) {
-        setError(`未帰投の予定の取得に失敗しました: ${err.message || err.toString()}`);
-      } finally {
-        setIsLoading(false); // ローディング完了
+        console.error(err);
       }
     };
 
     fetchUnreturnedTrips();
   }, []);
 
-  return { unreturnedTrips, isLoading, error };
-}
+  return unreturnedTrips;
+};

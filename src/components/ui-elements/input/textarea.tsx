@@ -1,7 +1,7 @@
 import React from "react";
 import { TextareaFormType } from "@/common/types/Types";
 
-export default function Textarea(props: TextareaFormType) {
+const Textarea: React.FC<TextareaFormType> = (props) => {
   return (
     <textarea
       placeholder={props.placeholder}
@@ -11,4 +11,6 @@ export default function Textarea(props: TextareaFormType) {
       onChange={props.onChange}
     ></textarea>
   );
-}
+};
+
+export default Textarea;

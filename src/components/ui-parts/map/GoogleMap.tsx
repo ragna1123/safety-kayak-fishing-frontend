@@ -1,12 +1,21 @@
 "use client";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { useGoogleMap } from "@/common/hooks/useGoogleMap";
 import { useRouter } from "next/navigation";
 import { useRecoilState } from "recoil";
 import { locationState } from "@/common/states/locationState";
 
-const GoogleMap = ({ locations }) => {
-  const googleMapRef = useRef(null);
+type Location = {
+  lat: number;
+  lng: number;
+};
+
+type GoogleMapProps = {
+  locations: Location[];
+};
+
+const GoogleMap: React.FC<GoogleMapProps> = ({ locations }) => {
+  const googleMapRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { googleMap, marker, setMarker } = useGoogleMap(googleMapRef, locations);
   const [recoilLocation, setRecoilLocation] = useRecoilState(locationState);
@@ -14,9 +23,11 @@ const GoogleMap = ({ locations }) => {
   useEffect(() => {
     if (!googleMap && window.google) {
       const defaultLocation = { lat: 35.6895, lng: 139.6917 }; // 東京の座標をデフォルト位置とする
-      const initialLocation = recoilLocation?.latitude && recoilLocation?.longitude ? { lat: recoilLocation.latitude, lng: recoilLocation.longitude } : defaultLocation;
+      const initialLocation = recoilLocation?.latitude && recoilLocation?.longitude
+        ? { lat: recoilLocation.latitude, lng: recoilLocation.longitude }
+        : defaultLocation;
 
-      const map = new google.maps.Map(googleMapRef.current, {
+      const map = new google.maps.Map(googleMapRef.current!, {
         center: initialLocation,
         zoom: 11,
       });
@@ -30,10 +41,9 @@ const GoogleMap = ({ locations }) => {
   }, []); // 依存配列を空にしてマウント時のみ実行
 
   useEffect(() => {
-    let clickListener;
-    console.log(googleMap);
+    let clickListener: google.maps.MapsEventListener | undefined;
     if (googleMap) {
-      clickListener = new google.maps.event.addListener(googleMap, "click", (e) => {
+      clickListener = google.maps.event.addListener(googleMap, "click", (e) => {
         if (marker) {
           // マーカーがすでにある場合は削除
           marker.setMap(null);
@@ -45,12 +55,13 @@ const GoogleMap = ({ locations }) => {
 
         router.push("/location");
         setRecoilLocation({ latitude: e.latLng.lat(), longitude: e.latLng.lng() });
-        console.log({ latitude: e.latLng.lat(), longitude: e.latLng.lng() });
         setMarker(newMarker);
       });
 
       return () => {
-        google.maps.event.removeListener(clickListener);
+        if (clickListener) {
+          google.maps.event.removeListener(clickListener);
+        }
       };
     }
   }, [googleMap, marker]);

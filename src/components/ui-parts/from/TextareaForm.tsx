@@ -1,5 +1,5 @@
-import Textarea from "@/components/ui-elements/input/Textarea";
 import { TextareaFormType } from "@/common/types/Types";
+import Textarea from "@/components/ui-elements/input/Textarea";
 
 export default function TextareaFrom(props: TextareaFormType) {
   return (

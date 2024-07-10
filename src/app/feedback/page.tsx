@@ -1,3 +1,4 @@
+"use client";
 import FeedbackLayout from "@/components/layouts/feedback/FeedbackLayout";
 import Header from "@/components/layouts/header/Header";
 import DisplayFlexWrapper from "@/components/layouts/_layoutWrapper/display/DisplayFlexWrapper";

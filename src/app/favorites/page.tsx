@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import FavoriteLayout from "@/components/layouts/favorite/FavoriteLayout";
 import Header from "@/components/layouts/header/Header";

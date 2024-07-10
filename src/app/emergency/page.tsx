@@ -1,3 +1,4 @@
+"use client";
 import Header from "@/components/layouts/header/Header";
 import MapLayout from "@/components/layouts/map/MapLayout";
 import EmergencyLayout from "@/components/layouts/emergency/EmergencyLayout";

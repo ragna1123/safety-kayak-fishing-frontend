@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Textarea from "@/components/ui-elements/input/Textarea";
 import { TextareaFormType } from "@/common/types/Types";

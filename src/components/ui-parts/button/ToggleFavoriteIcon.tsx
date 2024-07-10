@@ -1,5 +1,5 @@
+"use client";
 import FavoriteIconDisable from "@/components/ui-elements/icon/favorite/FavoriteIconDisable";
-import FavoriteIconEnable from "@/components/ui-elements/icon/favorite/FavoriteIconEnable";
 import React from "react";
 
 function ToggleFavoriteIcon() {

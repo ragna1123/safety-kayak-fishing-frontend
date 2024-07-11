@@ -1,3 +1,4 @@
+"use client";
 import DisplayFlexWrapper from "@/components/layouts/_layoutWrapper/display/DisplayFlexWrapper";
 import EmergencyLayout from "@/components/layouts/emergency/EmergencyLayout";
 import EmergencyRegisterLayout from "@/components/layouts/emergency/EmergencyRegisterLayout";

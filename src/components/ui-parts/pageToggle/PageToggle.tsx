@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import HomeLayout from "@/components/layouts/home/HomeLayout";
 import LocationLayout from "@/components/layouts/location/LocationLayout";

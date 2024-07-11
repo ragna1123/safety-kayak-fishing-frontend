@@ -1,3 +1,4 @@
+"use client";
 import InputField from "@/components/ui-elements/input/InputField";
 
 export default function FieldFrom() {

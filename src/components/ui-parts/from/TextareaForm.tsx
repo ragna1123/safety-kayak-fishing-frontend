@@ -1,7 +1,9 @@
-import Textarea from "@/components/ui-elements/input/textarea";
+"use client";
+import React from "react";
+import Textarea from "@/components/ui-elements/input/Textarea";
 import { TextareaFormType } from "@/common/types/Types";
 
-export default function TextareaFrom(props: TextareaFormType) {
+const TextareaForm: React.FC<TextareaFormType> = (props) => {
   return (
     <div className="form-control">
       <label className="label">
@@ -10,4 +12,6 @@ export default function TextareaFrom(props: TextareaFormType) {
       <Textarea placeholder={props.placeholder} id={props.id} row={props.row} className={props.className} onChange={props.onChange} />
     </div>
   );
-}
+};
+
+export default TextareaForm;

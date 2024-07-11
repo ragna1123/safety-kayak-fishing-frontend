@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Header from "@/components/layouts/header/Header";
 import ProfileLayout from "@/components/layouts/profile/ProfileLayout";

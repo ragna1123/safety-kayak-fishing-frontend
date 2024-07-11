@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 type CardTitleH2Props = {
   title: string;

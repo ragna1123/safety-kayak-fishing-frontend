@@ -8,15 +8,22 @@ import DeleteIcon from "@/components/ui-elements/icon/DeleteIcon";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
+type EmergencyContact = {
+  id: number;
+  name: string;
+  relationship: string;
+  email: string;
+};
+
 export default function EmergencyLayout() {
-  const [emergencyContacts, setEmergencyContacts] = useState([]);
+  const [emergencyContacts, setEmergencyContacts] = useState<EmergencyContact[]>([]);
   const [error, setError] = useState("");
   const router = useRouter();
 
   const fetchEmergencyContact = async () => {
     try {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/emergency_contacts`, { withCredentials: true });
-      const emergencyContacts = res.data.data;
+      const emergencyContacts: EmergencyContact[] = res.data.data;
       if (emergencyContacts && emergencyContacts.length > 0) {
         setEmergencyContacts(emergencyContacts);
         console.log("Emergency contacts:", emergencyContacts);

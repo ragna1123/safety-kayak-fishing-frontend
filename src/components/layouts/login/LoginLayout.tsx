@@ -19,7 +19,7 @@ export default function LoginLayout() {
     try {
       const requestLogin = { user: { email, password } };
       // ログインリクエストを送信
-      await axios.post(`http://localhost:3000/api/users/login`, requestLogin, { withCredentials: true }).then((response) => {
+      await axios.post(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/users/login`, requestLogin, { withCredentials: true }).then((response) => {
         if (response.status === 200) {
           // ログインに成功した場合の処理
           // レスポンスのステータスコードが200(OK)の場合はホームページにリダイレクト

@@ -1,3 +1,4 @@
+"use client";
 type ToggleSwitchProps = {
   label: string;
   checked: boolean;
@@ -8,12 +9,7 @@ export default function ToggleSwitch(props: ToggleSwitchProps) {
   return (
     <div className="flex items-center justify-between mb-2">
       <span>{props.label}</span>
-      <input
-        type="checkbox"
-        className="toggle toggle-accent"
-        checked={props.checked}
-        onChange={props.onChange}
-      />
+      <input type="checkbox" className="toggle toggle-accent" checked={props.checked} onChange={props.onChange} />
     </div>
   );
 }

@@ -9,21 +9,27 @@ import CardBodyWrapper from "../_layoutWrapper/card/CardBodyWrapper";
 import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
 import WarningFlashMessage from "@/components/ui-parts/flashMessage/WarningFlashMessage";
 
+interface FormData {
+  name: string;
+  relationship: string;
+  email: string;
+}
+
 export default function EmergencyRegisterLayout() {
   const router = useRouter();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     relationship: "",
     email: "",
   });
   const [error, setError] = useState("");
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = event.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
-  const registerEmergencyContact = async (event) => {
+  const registerEmergencyContact = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       const res = await axios.post(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/emergency_contacts`, { emergency_contact: formData }, { withCredentials: true });

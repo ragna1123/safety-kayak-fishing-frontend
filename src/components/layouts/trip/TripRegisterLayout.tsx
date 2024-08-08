@@ -82,7 +82,8 @@ export default function TripRegisterLayout() {
         {flashMessage && <WarningFlashMessage message="出船予定の登録に失敗しました" />}
         <h1 className="text-2xl font-bold m-8">出船登録</h1>
         <div className="flex justify-center">
-          <p className="text-sm text-stone-200">出船予定日: {}</p>
+          {/* 出船日時をリコイルから取得する↓ */}
+          {/* <p className="text-sm text-stone-200">出船予定日: {}</p> */}
         </div>
         <form onSubmit={registerTrip} className="w-full max-w-sm">
           <InputField label="出船時間" id="departureTime" type="time" defaultValue={departureTime} onChange={(e) => setDepartureTime(e.target.value)} />

@@ -7,9 +7,9 @@ import BasicButton from "@/components/ui-elements/button/BasicButton";
 
 export default function ProfileEditLayout() {
   return (
-    <DisplaySplitWrapper>
+    <DisplaySplitWrapper leftPosition={true}>
       <CardWrapper>
-        <h1 className="text-2xl font-bold text-center mt-4 mb-4">マイページ</h1>
+        <h1 className="text-3xl font-bold text-center mt-4 mb-4">プロフィール編集</h1>
         <CardBodyWrapper>
           <form action="#" className="w-full max-w-md space-y-4">
             <InputForm label="氏名" type="text" placeholder="氏名を入力" id="name" value="" onChange={(e) => e.target.value} />

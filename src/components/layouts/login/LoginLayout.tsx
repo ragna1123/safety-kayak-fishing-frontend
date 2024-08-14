@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import InputForm from "@/components/ui-parts/from/InputForm";
 import TextLink from "@/components/ui-elements/link/TextLink";
 import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
@@ -46,6 +46,21 @@ export default function LoginLayout() {
       console.error("Login error", error);
     }
   };
+  useEffect(() => {
+    const checkLogin = async () => {
+      try {
+        // ログイン状態をチェック
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/users/check_login`, { withCredentials: true });
+
+        if (response.status === 200) {
+          // ログイン済みの場合
+          router.push("/home");
+        }
+      } catch (error) {
+        console.error("Check login error", error);
+      }
+    };
+  }, []);
 
   return (
     <DisplaySplitWrapper className="flex justify-center items-center">

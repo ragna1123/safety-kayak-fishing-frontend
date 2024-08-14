@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import DailyWeatherDetail from "@/components/ui-elements/weatherForecast/DailyWeatherDetail";
 import WeeklyWeatherForecast from "@/components/ui-elements/weatherForecast/WeeklyWeatherForecast";
 import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
-import BasicButton from "@/components/ui-elements/button/BasicButton";
 import ErrorFlashMessage from "../flashMessage/ErrorFlashMessage";
 import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";
 import { FetchWeeklyWeatherData } from "@/components/serverComponents/FetchWeeklyWeatherData";
@@ -11,6 +10,8 @@ import { useRecoilValue } from "recoil";
 import { locationState } from "@/common/states/locationState";
 import { useRouter } from "next/navigation";
 import CardBodyWrapper from "@/components/layouts/_layoutWrapper/card/CardBodyWrapper";
+import TripRegisterLayout from "@/components/layouts/trip/TripRegisterLayout";
+import ModalWrapper from "@/components/ui-elements/modal/ModalWrapper";
 
 export default function LocationCard() {
   const router = useRouter();
@@ -79,7 +80,10 @@ export default function LocationCard() {
               <h1 className="text-2xl font-bold">{weatherDate.toLocaleDateString()}</h1>
             </div>
             <DailyWeatherDetail weatherData={weatherData} detailToggle={true} />
-            <BasicButton label="出船届を作成する" className="btn-success mb-2" onClick={() => registerNavigate()} />
+            {/* ↓ここからモーダル */}
+            <ModalWrapper element_id="tripRegisterModal" title="出船届を作成する">
+              <TripRegisterLayout />
+            </ModalWrapper>
           </CardBodyWrapper>
         </>
       )}

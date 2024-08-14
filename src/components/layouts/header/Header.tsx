@@ -2,8 +2,24 @@
 "use client";
 import React from "react";
 import ProfileImage from "@/components/ui-elements/profile/ProfileImage";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+  const router = useRouter();
+  const logoutHandler = () => {
+    try {
+      // ログアウト処理
+      // cookie の削除をAPIで行う
+      axios.delete(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/users/logout`, {
+        withCredentials: true,
+      });
+      router.push("/");
+    } catch (error) {
+      console.error("Logout error", error);
+    }
+  };
+
   return (
     <div className="navbar bg-base-200 fixed top-0 left-0 w-full z-50">
       {" "}
@@ -26,7 +42,9 @@ export default function Header() {
               <a href="/emergency">Emergency</a>
             </li>
             <li>
-              <a href="/logout">Logout</a>
+              <div onClick={logoutHandler} className="text-rose-700">
+                Logout
+              </div>
             </li>
           </ul>
         </div>

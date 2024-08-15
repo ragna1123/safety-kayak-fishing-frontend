@@ -21,7 +21,7 @@ export default function TripRegisterLayout() {
   const router = useRouter();
 
   const [departureTime, setDepartureTime] = useState("06:00");
-  const [estimatedReturnTime, setEstimatedReturnTime] = useState("18:00");
+  const [estimatedReturnTime, setEstimatedReturnTime] = useState("12:00");
   const [emailNotification, setEmailNotification] = useState(true);
   const [lineNotification, setLineNotification] = useState(true);
   const [flashMessage, setFlashMessage] = useState(false);
@@ -85,15 +85,13 @@ export default function TripRegisterLayout() {
         {/* 出船日時をリコイルから取得する↓ */}
         {/* <p className="text-sm text-stone-200">出船予定日: {}</p> */}
       </div>
-      <form onSubmit={registerTrip} className="w-full max-w-sm">
+      <div className="w-full max-w-sm">
         <InputField label="出船時間" id="departureTime" type="time" defaultValue={departureTime} onChange={(e) => setDepartureTime(e.target.value)} />
-        {/* <p>日の出 6:00</p> */}
         <InputField label="帰港時間" id="estimatedReturnTime" type="time" defaultValue={estimatedReturnTime} onChange={(e) => setEstimatedReturnTime(e.target.value)} />
-        {/* <p>日の入 18:00</p> */}
         <ToggleSwitch label="帰投時刻を過ぎたら緊急連絡先へメールを送信" checked={emailNotification} onChange={() => setEmailNotification(!emailNotification)} />
         <ToggleSwitch label="出船中に安全度が低下したらLINEでお知らせ" checked={lineNotification} onChange={() => setLineNotification(!lineNotification)} />
         <BasicButton label="出船届作成" className="btn-success my-8" type="submit" onClick={registerTrip} />
-      </form>
+      </div>
     </CardWrapper>
   );
 }

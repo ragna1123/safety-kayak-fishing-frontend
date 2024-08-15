@@ -46,6 +46,9 @@ export default function Header() {
                 Logout
               </div>
             </li>
+            <li>
+              <a href="/feedback">Feedback</a>
+            </li>
           </ul>
         </div>
       </div>

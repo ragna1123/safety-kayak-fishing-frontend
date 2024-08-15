@@ -13,6 +13,8 @@ import BasicButton from "@/components/ui-elements/button/BasicButton";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import ModalWrapper from "@/components/ui-elements/modal/ModalWrapper";
+import TripEditLayout from "./TripEditLayout";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -64,6 +66,7 @@ export default function TripDetailLayout() {
 
   const deleteTrip = async (id: number) => {
     try {
+      window.confirm("本当に削除しますか？");
       // トリップの削除処理
       const res = await axios.delete(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/trips/${id}`, { withCredentials: true });
       if (res.status === 200) {
@@ -121,8 +124,9 @@ export default function TripDetailLayout() {
                   <h3 className="text-xl px-1">{dayjs(tripData?.trip.sunset_time).tz("Asia/tokyo").format("H:mm")}</h3>
                 </div>
                 <DailyWeatherDetail weatherData={weatherData} detailToggle={true} />
-                {/* <BasicButton label="削除" className="btn-info" buttonClassName="text-slate-700" onClick={}/> */}
-                <BasicButton label="編集" className="btn-info" buttonClassName="text-slate-700" onClick={() => editTrip(tripData.trip.id)} />
+                <ModalWrapper element_id="trip-edit-modal" title="編集" onClick={() => editTrip(tripData.trip.id)}>
+                  <TripEditLayout />
+                </ModalWrapper>
                 <BasicButton label="削除" className="btn-error" buttonClassName="text-slate-700" onClick={() => deleteTrip(tripData.trip.id)} />
               </>
             ) : (

@@ -35,7 +35,7 @@ export default function TripReturnReportLayout() {
   }, [id]); // Dependency on `id` to refetch if it changes
 
   return (
-    <DisplaySplitWrapper leftPosition={true}>
+    <DisplaySplitWrapper>
       <CardWrapper>
         <CardBodyWrapper>{isLoaded ? <p>Loading...</p> : tripData ? <TripReportCard tripData={tripData} /> : <p>No trip data found.</p>}</CardBodyWrapper>
       </CardWrapper>

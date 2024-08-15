@@ -2,15 +2,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
-import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
 import CardWrapper from "../_layoutWrapper/card/CardWrapper";
 import InputField from "@/components/ui-elements/input/InputField";
 import ToggleSwitch from "@/components/ui-elements/switch/ToggleSwitch";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
-import WarningFlashMessage from "@/components/ui-parts/flashMessage/WarningFlashMessage";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import ErrorFlashMessage from "@/components/ui-parts/flashMessage/ErrorFlashMessage";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -77,18 +76,19 @@ export default function TripRegisterLayout() {
   }, [params.id]);
 
   return (
-    <DisplaySplitWrapper leftPosition={true}>
-      {flashMessage && <WarningFlashMessage message="編集時にエラーが発生しました" />}
+    <>
+      {flashMessage && <ErrorFlashMessage message="編集を失敗しました" />}
       <CardWrapper className="flex items-center justify-center">
+        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         <h1 className="text-3xl font-bold m-8">出船編集</h1>
-        <form onSubmit={registerTrip} className="w-full max-w-sm">
+        <div onSubmit={registerTrip} className="w-full max-w-sm">
           <InputField label="出船時間" id="departureTime" type="time" defaultValue={departureTime} onChange={(e) => setDepartureTime(e.target.value)} />
           <InputField label="帰港時間" id="estimatedReturnTime" type="time" defaultValue={estimatedReturnTime} onChange={(e) => setEstimatedReturnTime(e.target.value)} />
           <ToggleSwitch label="帰投時刻を過ぎたら緊急連絡先へメールを送信" checked={emailNotification} onChange={() => setEmailNotification(!emailNotification)} />
           <ToggleSwitch label="出船中に安全度が低下したらLINEでお知らせ" checked={lineNotification} onChange={() => setLineNotification(!lineNotification)} />
-          <BasicButton label="出船届編集" className="btn-success m-4" type="submit" />
-        </form>
+          <BasicButton label="出船届編集" className="btn-success m-4" type="submit" onClick={registerTrip} />
+        </div>
       </CardWrapper>
-    </DisplaySplitWrapper>
+    </>
   );
 }

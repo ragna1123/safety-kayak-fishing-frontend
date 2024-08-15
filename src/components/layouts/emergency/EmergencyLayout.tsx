@@ -7,6 +7,8 @@ import BasicButton from "@/components/ui-elements/button/BasicButton";
 import DeleteIcon from "@/components/ui-elements/icon/DeleteIcon";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import ModalWrapper from "@/components/ui-elements/modal/ModalWrapper";
+import EmergencyRegisterLayout from "./EmergencyRegisterLayout";
 
 type EmergencyContact = {
   id: number;
@@ -55,7 +57,7 @@ export default function EmergencyLayout() {
   };
 
   const addEmergencyContact = () => {
-    router.push("/emergency/register");
+    router.push("/emergency");
   };
 
   useEffect(() => {
@@ -92,7 +94,9 @@ export default function EmergencyLayout() {
               </tbody>
             </table>
           </div>
-          <BasicButton label="緊急連絡先を追加" className="btn-info" buttonClassName="mt-8" onClick={addEmergencyContact} />
+          <ModalWrapper element_id="emergencyModal" title="緊急連絡先を追加">
+            <EmergencyRegisterLayout />
+          </ModalWrapper>
         </CardBodyWrapper>
       </CardWrapper>
     </DisplaySplitWrapper>

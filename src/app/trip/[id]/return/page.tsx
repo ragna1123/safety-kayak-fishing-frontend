@@ -4,14 +4,15 @@ import DisplayFlexWrapper from "@/components/layouts/_layoutWrapper/display/Disp
 import TripReturnReportLayout from "@/components/layouts/trip/TripReturnReportLayout";
 import React from "react";
 import GoingTripLayout from "@/components/layouts/trip/GoingTripLayout";
+import MapLayout from "@/components/layouts/map/MapLayout";
 
 export default function TripReturn() {
   return (
     <>
       <Header />
       <DisplayFlexWrapper>
+        <MapLayout />
         <TripReturnReportLayout />
-        <GoingTripLayout />
       </DisplayFlexWrapper>
     </>
   );

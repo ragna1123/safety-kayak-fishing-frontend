@@ -35,7 +35,7 @@ export default function HomeLayout() {
 
   // 緊急連絡先登録画面への遷移
   const navigateToEmergencyRegister = () => {
-    router.push("/emergency/register");
+    router.push("/emergency");
   };
 
   const navigateToReturn = () => {

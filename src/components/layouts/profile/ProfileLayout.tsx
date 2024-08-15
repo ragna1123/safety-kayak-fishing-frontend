@@ -4,6 +4,8 @@ import CardWrapper from "../_layoutWrapper/card/CardWrapper";
 import CardBodyWrapper from "../_layoutWrapper/card/CardBodyWrapper";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import ModalWrapper from "@/components/ui-elements/modal/ModalWrapper";
+import ProfileEditLayout from "./ProfileEditLayout";
 
 export default function ProfileLayout() {
   const router = useRouter();
@@ -30,7 +32,7 @@ export default function ProfileLayout() {
   return (
     <DisplaySplitWrapper>
       <CardWrapper>
-        <h1 className="text-3xl font-bold text-center mt-4 mb-6">マイページ</h1>
+        <h1 className="text-3xl font-bold text-center mt-8 mb-4">マイページ</h1>
         <CardBodyWrapper>
           <div className="w-full max-w-md space-y-4">
             <div>
@@ -43,9 +45,9 @@ export default function ProfileLayout() {
             </div>
           </div>
           <div className="form-control mt-8">
-            <button className="btn btn-primary" onClick={handleProfileEdit}>
-              編集
-            </button>
+            <ModalWrapper element_id="profile-edit-modal" title="プロフィールを編集">
+              <ProfileEditLayout />
+            </ModalWrapper>
           </div>
         </CardBodyWrapper>
       </CardWrapper>

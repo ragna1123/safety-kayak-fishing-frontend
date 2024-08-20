@@ -30,7 +30,7 @@ export default function LoginLayout() {
         // ログインに成功した場合の処理
         setTimeout(() => {
           router.push("/home");
-        }, 500);
+        }, 2000);
       }
     } catch (error) {
       if (error.response) {

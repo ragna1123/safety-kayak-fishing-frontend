@@ -6,7 +6,7 @@ import { locationState } from "@/common/states/locationState";
 import LocationCard from "@/components/ui-parts/card/LocationCard";
 import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
 import CardWrapper from "../_layoutWrapper/card/CardWrapper";
-import FetchLocationName from "@/components/serverComponents/FetchLocationName";
+import FetchLocationName from "@/components/APIfetch/FetchLocationName";
 
 interface LocationState {
   latitude?: number; // 緯度

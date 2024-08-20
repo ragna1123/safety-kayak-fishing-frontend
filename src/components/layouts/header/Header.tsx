@@ -42,6 +42,9 @@ export default function Header() {
               <a href="/emergency">Emergency</a>
             </li>
             <li>
+              <a href="/trip/history">History</a>
+            </li>
+            <li>
               <div onClick={logoutHandler} className="text-rose-700">
                 Logout
               </div>

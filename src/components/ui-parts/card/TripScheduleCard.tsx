@@ -5,7 +5,7 @@ import CardBodyWrapper from "@/components/layouts/_layoutWrapper/card/CardBodyWr
 import CardWrapper from "@/components/layouts/_layoutWrapper/card/CardWrapper";
 import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import { useRouter } from "next/navigation";
-import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";
+import { FetchDailyWeatherData } from "@/components/APIfetch/FetchDailyWeatherData";
 import axios from "axios";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -64,7 +64,7 @@ export default function TripScheduleCard() {
       <CardBodyWrapper>
         <div className="flex justify-center">
           <h1
-            className="text-3xl font-bold text-center mt-4 cursor-pointer hover:text-zinc-500 transition duration-100 ease-in-out"
+            className="text-3xl font-bold text-center cursor-pointer hover:text-zinc-500 transition duration-100 ease-in-out"
             onClick={() => {
               navigateToSchedule();
             }}
@@ -72,7 +72,7 @@ export default function TripScheduleCard() {
             出船予定
           </h1>
         </div>
-        {tripData.length === 0 && !isLoading && <p className="text-center text-xl">出船予定はありません。</p>}
+        {tripData.length === 0 && !isLoading && <p className="text-center text-xl mt-2">出船予定はありません</p>}
         {isLoading ? (
           <FetchLoading />
         ) : (

@@ -4,8 +4,8 @@ import WeeklyWeatherForecast from "@/components/ui-elements/weatherForecast/Week
 import CardWrapper from "@/components/layouts/_layoutWrapper/card/CardWrapper";
 import CardBodyWrapper from "@/components/layouts/_layoutWrapper/card/CardBodyWrapper";
 import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
-import { FetchWeeklyWeatherData } from "@/components/serverComponents/FetchWeeklyWeatherData";
-import FetchLocationName from "@/components/serverComponents/FetchLocationName";
+import { FetchWeeklyWeatherData } from "@/components/APIfetch/FetchWeeklyWeatherData";
+import FetchLocationName from "@/components/APIfetch/FetchLocationName";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { locationState } from "@/common/states/locationState";
@@ -64,17 +64,17 @@ export default function FavoriteCard() {
 
   return (
     <CardWrapper>
-      <div className="flex justify-center">
-        <h1
-          className="text-3xl font-bold text-center mt-4 cursor-pointer hover:text-zinc-500 transition duration-100 ease-in-out"
-          onClick={() => {
-            navigateToFavoriteList();
-          }}
-        >
-          お気に入り地点
-        </h1>
-      </div>
       <CardBodyWrapper>
+        <div className="flex justify-center">
+          <h1
+            className="text-3xl font-bold text-center cursor-pointer hover:text-zinc-500 transition duration-100 ease-in-out"
+            onClick={() => {
+              navigateToFavoriteList();
+            }}
+          >
+            お気に入り地点
+          </h1>
+        </div>
         {isLoading ? (
           <FetchLoading />
         ) : favoriteLocations?.length > 0 && weeklyWeatherData?.length > 0 ? (
@@ -91,7 +91,7 @@ export default function FavoriteCard() {
             </div>
           ))
         ) : (
-          <p className="text-xl text-center">天気情報が見つかりませんでした。</p>
+          <p className="text-xl text-center m-2">お気に入りが登録されていません</p>
         )}
       </CardBodyWrapper>
     </CardWrapper>

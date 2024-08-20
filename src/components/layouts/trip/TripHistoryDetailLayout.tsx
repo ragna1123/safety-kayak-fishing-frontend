@@ -3,14 +3,13 @@ import ToggleFavoriteIcon from "@/components/ui-parts/button/ToggleFavoriteIcon"
 import React from "react";
 import DisplaySplitWrapper from "../_layoutWrapper/display/DisplaySplitWrapper";
 import CardWrapper from "../_layoutWrapper/card/CardWrapper";
-import CardBodyWrapper from "../_layoutWrapper/card/CardBodyWrapper";
 
 export default function TripHistoryDetailLayout() {
   return (
     <DisplaySplitWrapper>
       <CardWrapper>
         <div className="text-center p-4">
-          <h1 className="text-3xl font-bold mt-2">出船履歴</h1>
+          <h1 className="text-3xl font-bold mt-4">出船履歴</h1>
           <div className="flex justify-center items-center gap-4 mt-6">
             <h2 className="text-2xl font-bold">地点名</h2>
             <ToggleFavoriteIcon />

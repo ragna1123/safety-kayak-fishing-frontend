@@ -37,7 +37,7 @@ export default function TripUnreturnedLayout() {
   return (
     <DisplaySplitWrapper>
       <div className="flex justify-center">
-        <h1 className="text-3xl font-bold text-center m-8 mb-4">未報告一覧</h1>
+        <h1 className="text-3xl font-bold text-center mt-4 mb-4">未報告一覧</h1>
       </div>
       <CardWrapper>
         {unreturnedTrips.map((trip) => (

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
 import RecoilProvider from "./recoilProvider";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,8 +16,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="jp">
       <body className={inter.className}>
+        {/* 認証チェックを行うクライアントコンポーネント */}
         <RecoilProvider>{children}</RecoilProvider>
       </body>
     </html>

@@ -12,7 +12,7 @@ import { locationState } from "@/common/states/locationState";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import FetchLocationName from "@/components/serverComponents/FetchLocationName";
+import FetchLocationName from "@/components/APIfetch/FetchLocationName";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -80,7 +80,7 @@ export default function TripRegisterLayout() {
     <CardWrapper className="flex items-center justify-center">
       {flashMessage && <WarningFlashMessage message="出船予定の登録に失敗しました" />}
       <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-      <h1 className="text-2xl font-bold m-8">出船登録</h1>
+      <h1 className="text-3xl font-bold mt-4">出船登録</h1>
       <div className="flex justify-center">
         {/* 出船日時をリコイルから取得する↓ */}
         {/* <p className="text-sm text-stone-200">出船予定日: {}</p> */}

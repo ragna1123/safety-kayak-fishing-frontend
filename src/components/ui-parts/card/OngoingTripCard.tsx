@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import CardWrapper from "@/components/layouts/_layoutWrapper/card/CardWrapper";
 import CardBodyWrapper from "@/components/layouts/_layoutWrapper/card/CardBodyWrapper";
 import DailyWeatherDetail from "@/components/ui-elements/weatherForecast/DailyWeatherDetail";
-import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";
+import { FetchDailyWeatherData } from "@/components/APIfetch/FetchDailyWeatherData";
 import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import BasicButton from "@/components/ui-elements/button/BasicButton";
-import FetchLocationName from "@/components/serverComponents/FetchLocationName";
+import FetchLocationName from "@/components/APIfetch/FetchLocationName";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
 
@@ -58,7 +58,7 @@ export default function OngoingTripCard({ detailToggle }: { detailToggle: boolea
     <CardWrapper>
       <CardBodyWrapper>
         <div className="flex justify-center">
-          <h1 className="text-3xl font-bold text-center mt-4">出船中</h1>
+          <h1 className="text-3xl font-bold text-center">出船中</h1>
         </div>
         {isLoading ? (
           <FetchLoading />
@@ -78,7 +78,7 @@ export default function OngoingTripCard({ detailToggle }: { detailToggle: boolea
                 <BasicButton label="帰還報告へ" className="btn-success" onClick={navigateToReturn} />
               </>
             ) : (
-              <p className="text-center text-xl">出船予定はありません。</p>
+              <p className="text-center text-xl m-2">出船予定はありません</p>
             )}
           </>
         )}

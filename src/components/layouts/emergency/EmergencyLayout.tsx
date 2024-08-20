@@ -67,7 +67,7 @@ export default function EmergencyLayout() {
   return (
     <DisplaySplitWrapper>
       <CardWrapper>
-        <h1 className="text-2xl font-bold text-center mt-8 mb-4">緊急連絡先一覧</h1>
+        <h1 className="text-3xl font-bold text-center mt-8 mb-4">緊急連絡先一覧</h1>
         {error && <p className="text-red-500 text-center">{error}</p>}
         <CardBodyWrapper>
           <div className="overflow-x-auto w-full">

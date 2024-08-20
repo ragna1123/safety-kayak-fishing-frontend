@@ -80,7 +80,7 @@ export default function TripRegisterLayout() {
       {flashMessage && <ErrorFlashMessage message="編集を失敗しました" />}
       <CardWrapper className="flex items-center justify-center">
         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-        <h1 className="text-3xl font-bold m-8">出船編集</h1>
+        <h1 className="text-3xl font-bold m-4">出船編集</h1>
         <div onSubmit={registerTrip} className="w-full max-w-sm">
           <InputField label="出船時間" id="departureTime" type="time" defaultValue={departureTime} onChange={(e) => setDepartureTime(e.target.value)} />
           <InputField label="帰港時間" id="estimatedReturnTime" type="time" defaultValue={estimatedReturnTime} onChange={(e) => setEstimatedReturnTime(e.target.value)} />

@@ -4,8 +4,8 @@ import DailyWeatherDetail from "@/components/ui-elements/weatherForecast/DailyWe
 import WeeklyWeatherForecast from "@/components/ui-elements/weatherForecast/WeeklyWeatherForecast";
 import FetchLoading from "@/components/ui-elements/icon/FetchLoading";
 import ErrorFlashMessage from "../flashMessage/ErrorFlashMessage";
-import { FetchDailyWeatherData } from "@/components/serverComponents/FetchDailyWeatherData";
-import { FetchWeeklyWeatherData } from "@/components/serverComponents/FetchWeeklyWeatherData";
+import { FetchDailyWeatherData } from "@/components/APIfetch/FetchDailyWeatherData";
+import { FetchWeeklyWeatherData } from "@/components/APIfetch/FetchWeeklyWeatherData";
 import { useRecoilValue } from "recoil";
 import { locationState } from "@/common/states/locationState";
 import { useRouter } from "next/navigation";

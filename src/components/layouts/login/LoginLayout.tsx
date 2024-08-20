@@ -11,6 +11,7 @@ import WarningFlashMessage from "@/components/ui-parts/flashMessage/WarningFlash
 import ErrorFlashMessage from "@/components/ui-parts/flashMessage/ErrorFlashMessage";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { time } from "console";
 
 export default function LoginLayout() {
   const router = useRouter();
@@ -27,7 +28,9 @@ export default function LoginLayout() {
 
       if (response.status === 200) {
         // ログインに成功した場合の処理
-        router.push("/home");
+        setTimeout(() => {
+          router.push("/home");
+        }, 500);
       }
     } catch (error) {
       if (error.response) {

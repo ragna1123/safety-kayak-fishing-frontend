@@ -17,11 +17,13 @@ export default function CheckUserLoggedIn({ authRequired }: AuthCheckProps) {
         try {
           const res = await axios.get(`${process.env.NEXT_PUBLIC_RAILS_API_URL}/users/check_login`, { withCredentials: true });
           if (res.status !== 200) {
-            router.push("/");
+            // router.push("/");
+            console.log("CheckUserLoggedIn: not logged in");
           }
         } catch (error) {
           console.error(error);
-          router.push("/");
+          // router.push("/");
+          console.log("CheckUserLoggedIn: not logged in:error");
         }
       };
 

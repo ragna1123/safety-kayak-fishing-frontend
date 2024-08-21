@@ -8,7 +8,7 @@ import CheckUserLoggedIn from "@/components/auth/CheckUserLoggedIn";
 export default function Home() {
   return (
     <>
-      <CheckUserLoggedIn authRequired={true} />
+      {/* <CheckUserLoggedIn authRequired={true} /> */}
       <Header />
       <DisplayFlexWrapper>
         <MapLayout />

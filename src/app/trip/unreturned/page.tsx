@@ -4,10 +4,12 @@ import DisplayFlexWrapper from "@/components/layouts/_layoutWrapper/display/Disp
 import MapLayout from "@/components/layouts/map/MapLayout";
 import React from "react";
 import TripUnreturnedLayout from "@/components/layouts/trip/TripUnreturnedLayout";
+import CheckUserLoggedIn from "@/components/auth/CheckUserLoggedIn";
 
 export default function TripUnreturned() {
   return (
     <>
+      <CheckUserLoggedIn />
       <Header />
       <DisplayFlexWrapper>
         <MapLayout />
